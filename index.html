@@ -16,31 +16,31 @@
       --muted:#7b6a5e;
       --border:#d8c7b1;
       --accent:#5a3e2b;
-      --green:#23C463;
       --shadow:0 6px 14px rgba(60,47,39,.12);
     }
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth; scroll-padding-top: 160px;}
+    html{scroll-behavior:smooth; scroll-padding-top: 180px;}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.55 'Poppins', system-ui, Arial}
     img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
     .container{max-width:980px;margin:0 auto;padding:0 16px}
     main{padding:20px 5%}
     /* ======= STICKY HEADER ======= */
-    header.site-header{position:sticky;top:0;z-index:1000;background:var(--bg);box-shadow:0 2px 4px rgba(0,0,0,.05);padding:10px 5%}
-    .header-logo-container{text-align:center;padding:6px 0 10px}
-    .header-logo{max-height:54px;width:auto}
-    .top-nav{display:flex;justify-content:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+    header.site-header{position:sticky;top:0;z-index:1000;background:var(--bg);box-shadow:0 2px 4px rgba(0,0,0,.05)}
+    /* barra preta full width com o logo central */
+    .logo-bar{background:#000;display:flex;justify-content:center;align-items:center;padding:14px 0}
+    .header-logo{height:56px;width:auto}
+    .top-nav{display:flex;justify-content:center;gap:12px;margin:10px 5% 12px;flex-wrap:wrap}
     .nav-button{background:#a87c67;color:#fff;padding:10px 24px;border-radius:999px;font-weight:700;box-shadow:0 4px 10px rgba(0,0,0,.1)}
     .nav-button:hover{transform:translateY(-1px)}
-    .sub-nav-wrapper{border-top:1px solid var(--card);border-bottom:1px solid var(--card);padding:10px 0;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
+    .sub-nav-wrapper{border-top:1px solid var(--card);border-bottom:1px solid var(--card);padding:10px 5%;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;background:var(--bg)}
     .sub-nav-wrapper::-webkit-scrollbar{display:none}
     .sub-nav{display:flex;gap:22px;justify-content:flex-start}
     @media (min-width:768px){ .sub-nav{justify-content:center} }
     .sub-nav a{color:#7A5C4E;font-weight:600;padding-bottom:3px;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
     .sub-nav a:hover,.sub-nav a.active{color:var(--ink);border-bottom-color:var(--ink)}
     /* ======= LISTA ======= */
-    .section{padding:18px 0}
+    .section{padding:18px 5%}
     .section + .section{border-top:1px solid var(--border)}
     .section h2{margin:0 0 10px;color:var(--accent);font-size:clamp(18px,3.6vw,26px);display:flex;align-items:center;gap:10px}
     .underline{flex:1;height:2px;background:var(--accent);opacity:.3}
@@ -78,14 +78,13 @@
     .sz{border:1px solid var(--border);padding:6px 10px;border-radius:8px;background:#fff}
     .actions{display:flex;gap:10px;margin-top:10px}
     .btn{cursor:pointer;border:none;border-radius:999px;padding:10px 14px;font-weight:800}
-    .btn.wa{background:var(--green);color:#fff}
     .btn.ghost{background:#fff;border:1px solid var(--border);color:#000}
   </style>
 </head>
 <body>
-  <!-- ======= HEADER COM SCROLL SPY ======= -->
+  <!-- ======= HEADER COM LOGO EM BARRA PRETA ======= -->
   <header class="site-header">
-    <div class="header-logo-container">
+    <div class="logo-bar">
       <img src="https://i.imgur.com/l5pjZQZ.png" alt="Saggio" class="header-logo" />
     </div>
     <div class="top-nav">
@@ -111,7 +110,7 @@
     <section id="masculino" class="section">
       <h2>Coleção Masculina <span class="underline"></span></h2>
     </section>
-    <!-- As seções de categorias serão inseridas aqui pelo JS -->
+    <!-- Seções Feminino/Infantil de placeholder -->
     <section id="feminino" class="section">
       <h2>Coleção Feminina <span class="underline"></span></h2>
       <p style="color:var(--muted)">Conteúdo em breve.</p>
@@ -150,7 +149,6 @@
           <div id="dlgSizes" class="sizes"></div>
         </div>
         <div class="actions">
-          <button id="dlgWa" class="btn wa">Pedir no WhatsApp</button>
           <button class="btn ghost" onclick="dlg.close()">Fechar</button>
         </div>
       </div>
@@ -158,8 +156,6 @@
   </dialog>
 
   <script>
-    const WHATSAPP_NUMBER = '5585999999999'; // troque pelo seu número
-
     // ======= DADOS =======
     const ITENS = [
       { id:'tee-basica', grupo:'Básicas', titulo:'T‑Shirt Básica (14 Cores)',
@@ -191,14 +187,6 @@
         imagens:[ 'https://i.imgur.com/ehQjcEw.jpeg','https://i.imgur.com/9nRtnL2.jpeg','https://i.imgur.com/WsVp1Fd.jpeg','https://i.imgur.com/1mqizXj.jpeg','https://i.imgur.com/yB1cJi7.jpeg','https://i.imgur.com/TtXbRfm.png','https://i.imgur.com/6skv07Q.jpeg'],
         cores:['#FFFFFF','#D4AF37','#C2B280','#800000','#B2F5E9','#7FFFD4','#006400','#4682B4','#000080'],
         tamanhos:['P','M','G','XL']
-      },
-      { id:'tactel-elast', grupo:'Tactel', titulo:'Tactel Prêmio com Elastano',
-        desc:'Tecido premium com elastano. Secagem rápida e caimento perfeito.',
-        preco:'R$ 99,90', combo:null,
-        img:'https://i.imgur.com/5FFC7Lc.jpeg',
-        imagens:['https://i.imgur.com/5FFC7Lc.jpeg','https://i.imgur.com/6XgrZr3.jpeg','https://i.imgur.com/ARRZtfP.jpeg'],
-        cores:['#4682B4','#000080','#F5F5DC','#556B2F','#808080','#2F4F4F'],
-        tamanhos:['P','M','G','GG']
       },
       { id:'moletom', grupo:'Moletom', titulo:'Short de Moletom',
         desc:'Cós elástico com cordão, bolsos laterais + cargo e etiqueta em couro (coruja).',
@@ -240,16 +228,17 @@
       }
     ];
 
-    // Mapeia nomes de grupo -> IDs das seções (para bater com o cabeçalho)
+    // Ordem fixa das categorias (restaura a inicial)
+    const ORDER = ['Básicas','Silkadas','Cotton','Tactel','Moletom','Sarja','Plus Size','Acessórios'];
     const GROUP_TO_ID = {
-      "Básicas":"basicas",
-      "Silkadas":"silkadas",
-      "Cotton":"conforto",
-      "Tactel":"tactel",
-      "Moletom":"moleton",
-      "Sarja":"sarja",
-      "Plus Size":"plus_size",
-      "Acessórios":"bone"
+      'Básicas':'basicas',
+      'Silkadas':'silkadas',
+      'Cotton':'conforto',
+      'Tactel':'tactel',
+      'Moletom':'moleton',
+      'Sarja':'sarja',
+      'Plus Size':'plus_size',
+      'Acessórios':'bone'
     };
 
     // ======= RENDER LISTA =======
@@ -263,18 +252,15 @@
     const dlgCombo = document.getElementById('dlgCombo');
     const dlgSwatches = document.getElementById('dlgSwatches');
     const dlgSizes = document.getElementById('dlgSizes');
-    const dlgWa = document.getElementById('dlgWa');
 
     function groupBy(arr,key){return arr.reduce((a,c)=>{(a[c[key]]||=[]).push(c);return a},{});}    
 
     function render(){
       const groups = groupBy(ITENS,'grupo');
-      // Inserir as seções de categoria logo após #masculino
       const anchor = document.getElementById('masculino');
-      Object.keys(groups).forEach(g=>{
-        const sec = document.createElement('section'); sec.className='section';
-        const id = GROUP_TO_ID[g] || g.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').replace(/[^\\w\\s-]/g,'').replace(/\\s+/g,'-');
-        sec.id = id;
+      ORDER.forEach(g=>{
+        if(!groups[g]) return;
+        const sec = document.createElement('section'); sec.className='section'; sec.id = GROUP_TO_ID[g];
         sec.innerHTML = `<h2>${g}<span class="underline"></span></h2>`;
         const list = document.createElement('div'); list.className='list';
         groups[g].forEach(it=>{
@@ -325,24 +311,17 @@
       dlgSizes.innerHTML='';
       (item.tamanhos||[]).forEach(s=>{ const el=document.createElement('span'); el.className='sz'; el.textContent=s; dlgSizes.appendChild(el) });
 
-      dlgWa.onclick=()=>{
-        const txt = encodeURIComponent(`Olá! Tenho interesse em: ${item.titulo}${item.preco?` — ${item.preco}`:''}${item.combo?` | ${item.combo}`:''}`);
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${txt}`,'_blank');
-      };
-
       dlg.showModal();
     }
 
-    // ======= SCROLL SPY (ativo no cabeçalho) =======
+    // ======= SCROLL SPY =======
     document.addEventListener('DOMContentLoaded', () => {
-      render(); // primeiro renderiza as seções
+      render();
 
       const sections = Array.from(document.querySelectorAll('.section[id]'));
       const navLinks = Array.from(document.querySelectorAll('.sub-nav a'));
-
       if (sections.length === 0 || navLinks.length === 0) return;
 
-      // Observa posição no viewport para ativar link correspondente
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -350,7 +329,6 @@
             navLinks.forEach(link => {
               link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
             });
-            // mantém o link visível no scroll da subnav
             const active = document.querySelector('.sub-nav a.active');
             if (active) active.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
           }
