@@ -27,11 +27,10 @@
     main{padding:20px 5%}
     /* ======= STICKY HEADER ======= */
     header.site-header{position:sticky;top:0;z-index:1000;background:var(--bg);box-shadow:0 2px 4px rgba(0,0,0,.05)}
-    /* barra preta full width com o logo central */
     .logo-bar{background:#000;display:flex;justify-content:center;align-items:center;padding:14px 0}
     .header-logo{height:56px;width:auto}
-    .top-nav{display:flex;justify-content:center;gap:12px;margin:10px 5% 12px;flex-wrap:wrap}
-    .nav-button{background:#a87c67;color:#fff;padding:10px 24px;border-radius:999px;font-weight:700;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+    .top-nav{display:flex;justify-content:center;gap:12px;margin:10px 5% 12px;flex-wrap:nowrap;overflow-x:auto;padding:0 10px;-ms-overflow-style:none;scrollbar-width:none} .top-nav::-webkit-scrollbar{display:none}
+    .nav-button{flex:0 0 auto;background:#a87c67;color:#fff;padding:10px 24px;border-radius:999px;font-weight:700;box-shadow:0 4px 10px rgba(0,0,0,.1)}
     .nav-button:hover{transform:translateY(-1px)}
     .sub-nav-wrapper{border-top:1px solid var(--card);border-bottom:1px solid var(--card);padding:10px 5%;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;background:var(--bg)}
     .sub-nav-wrapper::-webkit-scrollbar{display:none}
@@ -79,13 +78,18 @@
     .actions{display:flex;gap:10px;margin-top:10px}
     .btn{cursor:pointer;border:none;border-radius:999px;padding:10px 14px;font-weight:800}
     .btn.ghost{background:#fff;border:1px solid var(--border);color:#000}
-  </style>
+  
+@media (max-width:480px){
+  .nav-button{font-size:0.85rem;padding:8px 16px}
+}
+
+</style>
 </head>
 <body>
-  <!-- ======= HEADER COM LOGO EM BARRA PRETA ======= -->
+  <!-- ======= HEADER ======= -->
   <header class="site-header">
     <div class="logo-bar">
-      <img src="https://i.imgur.com/l5pjZQZ.png" alt="Saggio" class="header-logo" />
+      <img src="https://i.imgur.com/8LK230j.png" alt="Saggio" class="header-logo" />
     </div>
     <div class="top-nav">
       <a href="#masculino" class="nav-button">Masculino</a>
@@ -110,7 +114,7 @@
     <section id="masculino" class="section">
       <h2>Coleção Masculina <span class="underline"></span></h2>
     </section>
-    <!-- Seções Feminino/Infantil de placeholder -->
+    <!-- As seções das categorias serão inseridas aqui (antes de #feminino) -->
     <section id="feminino" class="section">
       <h2>Coleção Feminina <span class="underline"></span></h2>
       <p style="color:var(--muted)">Conteúdo em breve.</p>
@@ -228,7 +232,6 @@
       }
     ];
 
-    // Ordem fixa das categorias (restaura a inicial)
     const ORDER = ['Básicas','Silkadas','Cotton','Tactel','Moletom','Sarja','Plus Size','Acessórios'];
     const GROUP_TO_ID = {
       'Básicas':'basicas',
@@ -241,7 +244,7 @@
       'Acessórios':'bone'
     };
 
-    // ======= RENDER LISTA =======
+    // ======= RENDER LISTA (inserindo ANTES de #feminino para manter ordem) =======
     const $content = document.getElementById('content');
     const dlg = document.getElementById('dlg');
     const dlgTitle = document.getElementById('dlgTitle');
@@ -257,7 +260,7 @@
 
     function render(){
       const groups = groupBy(ITENS,'grupo');
-      const anchor = document.getElementById('masculino');
+      const beforeNode = document.getElementById('feminino'); // inserir antes desta seção
       ORDER.forEach(g=>{
         if(!groups[g]) return;
         const sec = document.createElement('section'); sec.className='section'; sec.id = GROUP_TO_ID[g];
@@ -279,7 +282,8 @@
           list.appendChild(art);
         });
         sec.appendChild(list);
-        anchor.insertAdjacentElement('afterend', sec);
+        // insere mantendo a ordem (sempre antes do mesmo nó de referência)
+        $content.insertBefore(sec, beforeNode);
       });
     }
 
