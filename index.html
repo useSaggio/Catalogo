@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Saggio — Catálogo com Cabeçalho e Scroll Spy</title>
+  <title>Saggio — Catálogo Digital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,42 +19,54 @@
       --shadow:0 6px 14px rgba(60,47,39,.12);
     }
     *{box-sizing:border-box}
-    html{scroll-behavior:auto; scroll-padding-top: 180px;}
+    html{scroll-behavior:smooth; scroll-padding-top: 180px;}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.55 'Poppins', system-ui, Arial}
     img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
     .container{max-width:980px;margin:0 auto;padding:0 16px}
     main{padding:20px 5%}
-    /* ======= STICKY HEADER ======= */
+    
     header.site-header{position:sticky;top:0;z-index:1000;background:var(--bg);box-shadow:0 2px 4px rgba(0,0,0,.05)}
     .logo-bar{background:#000;display:flex;justify-content:center;align-items:center;padding:14px 0}
     .header-logo{height:56px;width:auto}
-    .top-nav{display:flex;justify-content:center;gap:12px;margin:10px 5% 12px;flex-wrap:nowrap;overflow-x:auto;padding:0 10px;-ms-overflow-style:none;scrollbar-width:none} .top-nav::-webkit-scrollbar{display:none}
-    .nav-button{flex:0 0 auto;background:#a87c67;color:#fff;padding:10px 24px;border-radius:999px;font-weight:700;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+    .top-nav{display:flex;justify-content:center;gap:12px;margin:10px 5% 12px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:10px;-ms-overflow-style:none;scrollbar-width:none} 
+    .top-nav::-webkit-scrollbar{display:none}
+    .nav-button{flex:0 0 auto;background:#a87c67;color:#fff;padding:10px 24px;border-radius:999px;font-weight:700;box-shadow:0 4px 10px rgba(0,0,0,.1); transition: transform 0.2s ease;}
     .nav-button:hover{transform:translateY(-1px)}
+    
     .sub-nav-wrapper{border-top:1px solid var(--card);border-bottom:1px solid var(--card);padding:10px 5%;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;background:var(--bg)}
     .sub-nav-wrapper::-webkit-scrollbar{display:none}
-    .sub-nav{display:flex;gap:22px;justify-content:flex-start;scroll-snap-type:x proximity} .sub-nav a{scroll-snap-align:center}
+    .sub-nav{display:flex;gap:22px;justify-content:flex-start; position: relative;}
     @media (min-width:768px){ .sub-nav{justify-content:center} }
-    .sub-nav a{color:#7A5C4E;font-weight:600;padding-bottom:3px;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
-    .sub-nav a:hover,.sub-nav a.active{color:var(--ink);border-bottom-color:var(--ink);font-weight:700;position:relative}
-.sub-nav a.active::after{content:'';position:absolute;left:0;right:0;bottom:-6px;height:3px;background:var(--ink);border-radius:2px}
-    /* ======= LISTA ======= */
+    .sub-nav a{color:#7A5C4E;font-weight:600;white-space:nowrap;transition:color .2s; position: relative; z-index: 1; padding: 6px 10px;}
+    .sub-nav a.active{color:var(--ink); font-weight: 700;}
+
+    /* EFEITO "PILL SLIDER" */
+    .pill-slider {
+        position: absolute;
+        top: 3px;
+        height: 32px;
+        border-radius: 999px;
+        background: rgba(90,62,43,0.12);
+        box-shadow: 0 2px 6px rgba(0,0,0,.08) inset, 0 1px 2px rgba(0,0,0,.06);
+        transition: transform .3s ease, width .3s ease;
+        pointer-events: none;
+    }
+    
     .section{padding:18px 5%}
     .section + .section{border-top:1px solid var(--border)}
     .section h2{margin:0 0 10px;color:var(--accent);font-size:clamp(18px,3.6vw,26px);display:flex;align-items:center;gap:10px}
     .underline{flex:1;height:2px;background:var(--accent);opacity:.3}
     .list{display:flex;flex-direction:column;gap:12px}
-    .item{background:var(--paper);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);padding:10px}
+    .item{background:var(--paper);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);padding:10px; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease;}
+    .item:hover {transform: translateY(-4px); box-shadow: 0 8px 15px rgba(60,47,39,.15);}
     .row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
     .meta h3{margin:0 0 4px;font:700 1rem/1.25 'Poppins', system-ui}
     .meta p{margin:0;color:var(--muted)}
     .price{margin-top:8px;font-weight:700}
-    .more{display:inline-block;margin-top:4px;text-decoration:underline}
+    
     .thumb{width:76px;height:76px;border-radius:8px;object-fit:cover;border:1px solid var(--border);background:#fff}
-    .icons{display:flex;gap:6px;justify-content:flex-end;margin-top:6px}
-    .ic{width:26px;height:26px;border-radius:999px;border:1px solid var(--border);background:var(--card);display:grid;place-items:center;font-size:.9rem;color:#8a7b6e}
-    /* ======= MODAL: galeria grande com thumbs abaixo ======= */
+    
     dialog{border:none;border-radius:14px;padding:0;background:var(--paper);color:var(--ink);max-width:1100px;width:98%;box-shadow:var(--shadow)}
     dialog::backdrop{background:rgb(0 0 0/.55)}
     .modal-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--border)}
@@ -80,56 +91,31 @@
     .actions{display:flex;gap:10px;margin-top:10px}
     .btn{cursor:pointer;border:none;border-radius:999px;padding:10px 14px;font-weight:800}
     .btn.ghost{background:#fff;border:1px solid var(--border);color:#000}
-  
-@media (max-width:480px){
-  .nav-button{font-size:0.85rem;padding:8px 16px}
-}
-
-
-/* === Pill slider highlight (leve e elegante) === */
-.sub-nav{position:relative}
-.sub-nav .pillbar{
-  position:absolute;
-  top:3px;
-  height:32px;
-  width:0;
-  border-radius:999px;
-  background:rgba(90,62,43,0.12); /* marrom translúcido */
-  box-shadow:0 2px 6px rgba(0,0,0,.08) inset, 0 1px 2px rgba(0,0,0,.06);
-  transform:translateX(0);
-  transition:transform .28s ease, width .28s ease, opacity .2s ease;
-  pointer-events:none;
-}
-@media (prefers-reduced-motion: reduce){
-  .sub-nav .pillbar{transition:none}
-}
-.sub-nav a{position:relative; z-index:1; padding:6px 10px 10px; border-bottom:0}
-.sub-nav a.active{font-weight:700; color:var(--ink)}
-
-</style>
+  </style>
 </head>
 <body>
-  <!-- ======= HEADER ======= -->
   <header class="site-header">
     <div class="logo-bar">
       <img src="https://i.imgur.com/8LK230j.png" alt="Saggio" class="header-logo" />
     </div>
-    <div class="top-nav">
-      <a href="#masculino" class="nav-button">Masculino</a>
-      <a href="#feminino" class="nav-button">Feminino</a>
-      <a href="#infantil" class="nav-button">Infantil</a>
-    </div>
-    <div class="sub-nav-wrapper">
-      <nav class="sub-nav" id="subnav">
-        <a href="#basicas">Básicas</a>
-        <a href="#silkadas">Silkadas</a>
-        <a href="#conforto">Tshirt Conforto</a>
-        <a href="#tactel">Tactel</a>
-        <a href="#moleton">Moletom</a>
-        <a href="#sarja">Bermuda de Sarja</a>
-        <a href="#plus_size">Plus Size</a>
-        <a href="#bone">Boné</a>
-      </nav>
+    <div class="header-content">
+        <div class="top-nav">
+          <a href="#masculino" class="nav-button">Masculino</a>
+          <a href="#feminino" class="nav-button">Feminino</a>
+          <a href="#infantil" class="nav-button">Infantil</a>
+        </div>
+        <div class="sub-nav-wrapper">
+          <nav class="sub-nav" id="subnav">
+            <a href="#basicas">Básicas</a>
+            <a href="#silkadas">Silkadas</a>
+            <a href="#conforto">Tshirt Conforto</a>
+            <a href="#tactel">Tactel</a>
+            <a href="#moleton">Moletom</a>
+            <a href="#sarja">Bermuda de Sarja</a>
+            <a href="#plus_size">Plus Size</a>
+            <a href="#bone">Boné</a>
+          </nav>
+        </div>
     </div>
   </header>
 
@@ -137,7 +123,6 @@
     <section id="masculino" class="section">
       <h2>Coleção Masculina <span class="underline"></span></h2>
     </section>
-    <!-- As seções das categorias serão inseridas aqui (antes de #feminino) -->
     <section id="feminino" class="section">
       <h2>Coleção Feminina <span class="underline"></span></h2>
       <p style="color:var(--muted)">Conteúdo em breve.</p>
@@ -148,7 +133,6 @@
     </section>
   </main>
 
-  <!-- ======= MODAL ======= -->
   <dialog id="dlg">
     <div class="modal-head">
       <h3 id="dlgTitle" class="modal-title"></h3>
@@ -183,91 +167,23 @@
   </dialog>
 
   <script>
-    // ======= DADOS =======
     const ITENS = [
-      { id:'tee-basica', grupo:'Básicas', titulo:'T‑Shirt Básica (14 Cores)',
-        desc:'Malha 100% algodão, fio 30.1 penteada, gola canelada e reforço ombro a ombro. Tamanhos: P, M, G, GG.',
-        preco:'R$ 120,00 (combo)', combo:'3 por R$ 120,00',
-        img:'https://i.imgur.com/m5xnpEl.jpeg',
-        imagens:[ 'https://i.imgur.com/m5xnpEl.jpeg','https://i.imgur.com/Xt8vcm9.jpeg','https://i.imgur.com/xd8fdAD.jpeg','https://i.imgur.com/Ud5VlKu.jpeg','https://i.imgur.com/EECbuFI.jpeg'],
-        cores:['#556B2F','#BCB8B1','#ACE1AF','#89CFF0','#000080','#A9A9A9','#000000','#FFDB58','#D8D0C8','#F5F5DC','#FFFFFF','#FFB6C1','#DE3163','#FF0000'],
-        tamanhos:['P','M','G','GG']
-      },
-      { id:'tee-silk', grupo:'Silkadas', titulo:'T‑Shirt Silkada',
-        desc:'Silk prensado com toque leve, malha 100% algodão. Várias cores. Tamanhos: P, M, G, GG.',
-        preco:'R$ 90,00', combo:'2 por R$ 130,00',
-        img:'https://i.imgur.com/yIRfwHy.jpeg',
-        imagens:[ 'https://i.imgur.com/yIRfwHy.jpeg','https://i.imgur.com/4p6EoEP.jpeg','https://i.imgur.com/PqTR1T5.jpeg','https://i.imgur.com/d7sYZSw.jpeg','https://i.imgur.com/zNCMKH7.jpeg','https://i.imgur.com/117XZ4B.jpeg','https://i.imgur.com/qJDieg8.jpeg','https://i.imgur.com/yecDYdx.jpeg'],
-        cores:['#000000','#FFFFFF','#808080'], tamanhos:['P','M','G','GG']
-      },
-      { id:'cotton', grupo:'Cotton', titulo:'T‑Shirt Conforto (Cotton)',
-        desc:'96% algodão | 4% elastano. Toque macio, amassa menos e pigmentação firme.',
-        preco:'R$ 90,00', combo:'2 por R$ 150,00',
-        img:'https://i.imgur.com/Hk4wAbO.jpeg',
-        imagens:[ 'https://i.imgur.com/Hk4wAbO.jpeg','https://i.imgur.com/Wy7xhOE.jpeg','https://i.imgur.com/XpLpMvP.jpeg','https://i.imgur.com/Tvfd3lt.jpeg','https://i.imgur.com/gmCXjJU.jpeg','https://i.imgur.com/Bs21P1C.jpeg','https://i.imgur.com/gpNvmPW.jpeg','https://i.imgur.com/Svwbu08.jpeg','https://i.imgur.com/kc5G16Z.jpeg','https://i.imgur.com/LWs7zqt.jpeg'],
-        cores:['#FFFFFF','#000000','#A9A9A9'], tamanhos:['P','M','G','GG']
-      },
-      { id:'tactel', grupo:'Tactel', titulo:'Short de Tactel',
-        desc:'Forro antialérgico, cordão regulador, costura tripla. Tamanhos: P, M, G, XL.',
-        preco:'R$ 85,00', combo:'2 por R$ 150,00',
-        img:'https://i.imgur.com/ehQjcEw.jpeg',
-        imagens:[ 'https://i.imgur.com/ehQjcEw.jpeg','https://i.imgur.com/9nRtnL2.jpeg','https://i.imgur.com/WsVp1Fd.jpeg','https://i.imgur.com/1mqizXj.jpeg','https://i.imgur.com/yB1cJi7.jpeg','https://i.imgur.com/TtXbRfm.png','https://i.imgur.com/6skv07Q.jpeg'],
-        cores:['#FFFFFF','#D4AF37','#C2B280','#800000','#B2F5E9','#7FFFD4','#006400','#4682B4','#000080'],
-        tamanhos:['P','M','G','XL']
-      },
-      { id:'moletom', grupo:'Moletom', titulo:'Short de Moletom',
-        desc:'Cós elástico com cordão, bolsos laterais + cargo e etiqueta em couro (coruja).',
-        preco:'Consultar', combo:null,
-        img:'https://i.imgur.com/OTRN9YH.jpeg',
-        imagens:[ 'https://i.imgur.com/OTRN9YH.jpeg','https://i.imgur.com/199Fuhv.jpeg','https://i.imgur.com/8Hc3DFP.jpeg','https://i.imgur.com/cF61r0e.jpeg','https://i.imgur.com/295V8Si.jpeg'],
-        cores:['#556B2F','#F5F5DC','#000000','#FFDB58','#000080','#800000'],
-        tamanhos:['P','M','G']
-      },
-      { id:'sarja-elast', grupo:'Sarja', titulo:'Bermuda de Sarja — Cós Elástico',
-        desc:'Corte moderno e tecido confortável, com a praticidade do cós de elástico. Tamanhos: 38, 40, 42, 44.',
-        preco:'Consultar', combo:null,
-        img:'https://i.imgur.com/UJR5soC.jpeg',
-        imagens:[ 'https://i.imgur.com/UJR5soC.jpeg','https://i.imgur.com/YUslcrP.jpeg','https://i.imgur.com/gTLEG9u.jpeg','https://i.imgur.com/rSjul7k.jpeg','https://i.imgur.com/q7Fpdnc.jpeg','https://i.imgur.com/eKo1WlT.jpeg'],
-        cores:['#A9A9A9','#000000','#F5F5DC','#556B2F','#4682B4','#800000'],
-        tamanhos:['38','40','42','44']
-      },
-      { id:'sarja-trad', grupo:'Sarja', titulo:'Bermuda de Sarja — Cós Tradicional',
-        desc:'Corte moderno e tecido confortável, com o estilo clássico do cós tradicional. Tamanhos: 38, 40, 42, 44.',
-        preco:'Consultar', combo:null,
-        img:'https://i.imgur.com/7e3yAul.jpeg',
-        imagens:[ 'https://i.imgur.com/7e3yAul.jpeg','https://i.imgur.com/FRzcP9G.jpeg','https://i.imgur.com/02PUtFO.jpeg','https://i.imgur.com/S05gJZv.jpeg','https://i.imgur.com/PR3WCkR.jpeg','https://i.imgur.com/OPxuKsA.jpeg','https://i.imgur.com/YMsKhZr.jpeg'],
-        cores:['#A9A9A9','#000000','#F5F5DC','#556B2F','#4682B4','#800000'],
-        tamanhos:['38','40','42','44']
-      },
-      { id:'plus', grupo:'Plus Size', titulo:'T‑Shirt Plus Size',
-        desc:'30.1 penteada, gola canelada e reforço ombro a ombro. Tamanhos: XL(50), X1(52), X2(54).',
-        preco:'R$ 90,00', combo:'3 por R$ 180,00',
-        img:'https://i.imgur.com/1KBuplb.jpeg',
-        imagens:[ 'https://i.imgur.com/1KBuplb.jpeg','https://i.imgur.com/1nxgGba.png','https://i.imgur.com/dXp0abc.jpeg','https://i.imgur.com/61wnId6.jpeg'],
-        cores:['#000000','#FFFFFF'], tamanhos:['XL(50)','X1(52)','X2(54)']
-      },
-      { id:'bone', grupo:'Acessórios', titulo:'Boné Trucker Bordado',
-        desc:'Traseira em tela com ajuste de tamanho. Logo bordado. Tamanho único.',
-        preco:'R$ 69,90', combo:null,
-        img:'https://i.imgur.com/m7qD4IY.png',
-        imagens:[ 'https://i.imgur.com/m7qD4IY.png','https://i.imgur.com/JO5mIhd.jpeg','https://i.imgur.com/foM7ai9.jpeg','https://i.imgur.com/GyBmvLJ.jpeg','https://i.imgur.com/SVD2IJG.jpeg','https://i.imgur.com/icBHKQm.jpeg'],
-        cores:['#000000','#FFFFFF'], tamanhos:['Único']
-      }
+      { id:'tee-basica', grupo:'Básicas', titulo:'T‑Shirt Básica (14 Cores)', desc:'Malha 100% algodão, fio 30.1 penteada, gola canelada e reforço ombro a ombro. Tamanhos: P, M, G, GG.', preco:'R$ 120,00 (combo)', combo:'3 por R$ 120,00', img:'https://i.imgur.com/m5xnpEl.jpeg', imagens:[ 'https://i.imgur.com/m5xnpEl.jpeg','https://i.imgur.com/Xt8vcm9.jpeg','https://i.imgur.com/xd8fdAD.jpeg','https://i.imgur.com/Ud5VlKu.jpeg','https://i.imgur.com/EECbuFI.jpeg'], cores:['#556B2F','#BCB8B1','#ACE1AF','#89CFF0','#000080','#A9A9A9','#000000','#FFDB58','#D8D0C8','#F5F5DC','#FFFFFF','#FFB6C1','#DE3163','#FF0000'], tamanhos:['P','M','G','GG'] },
+      { id:'tee-silk', grupo:'Silkadas', titulo:'T‑Shirt Silkada', desc:'Silk prensado com toque leve, malha 100% algodão. Várias cores. Tamanhos: P, M, G, GG.', preco:'R$ 90,00', combo:'2 por R$ 130,00', img:'https://i.imgur.com/yIRfwHy.jpeg', imagens:[ 'https://i.imgur.com/yIRfwHy.jpeg','https://i.imgur.com/4p6EoEP.jpeg','https://i.imgur.com/PqTR1T5.jpeg','https://i.imgur.com/d7sYZSw.jpeg','https://i.imgur.com/zNCMKH7.jpeg','https://i.imgur.com/117XZ4B.jpeg','https://i.imgur.com/qJDieg8.jpeg','https://i.imgur.com/yecDYdx.jpeg'], cores:['#000000','#FFFFFF','#808080'], tamanhos:['P','M','G','GG'] },
+      { id:'cotton', grupo:'Tshirt Conforto', titulo:'T‑Shirt Conforto (Cotton)', desc:'96% algodão | 4% elastano. Toque macio, amassa menos e pigmentação firme.', preco:'R$ 90,00', combo:'2 por R$ 150,00', img:'https://i.imgur.com/Hk4wAbO.jpeg', imagens:[ 'https://i.imgur.com/Hk4wAbO.jpeg','https://i.imgur.com/Wy7xhOE.jpeg','https://i.imgur.com/XpLpMvP.jpeg','https://i.imgur.com/Tvfd3lt.jpeg','https://i.imgur.com/gmCXjJU.jpeg','https://i.imgur.com/Bs21P1C.jpeg','https://i.imgur.com/gpNvmPW.jpeg','https://i.imgur.com/Svwbu08.jpeg','https://i.imgur.com/kc5G16Z.jpeg','https://i.imgur.com/LWs7zqt.jpeg'], cores:['#FFFFFF','#000000','#A9A9A9'], tamanhos:['P','M','G','GG'] },
+      { id:'tactel', grupo:'Tactel', titulo:'Short de Tactel', desc:'Forro antialérgico, cordão regulador, costura tripla. Tamanhos: P, M, G, XL.', preco:'R$ 85,00', combo:'2 por R$ 150,00', img:'https://i.imgur.com/ehQjcEw.jpeg', imagens:[ 'https://i.imgur.com/ehQjcEw.jpeg','https://i.imgur.com/9nRtnL2.jpeg','https://i.imgur.com/WsVp1Fd.jpeg','https://i.imgur.com/1mqizXj.jpeg','https://i.imgur.com/yB1cJi7.jpeg','https://i.imgur.com/TtXbRfm.png','https://i.imgur.com/6skv07Q.jpeg'], cores:['#FFFFFF','#D4AF37','#C2B280','#800000','#B2F5E9','#7FFFD4','#006400','#4682B4','#000080'], tamanhos:['P','M','G','XL'] },
+      { id:'moletom', grupo:'Moletom', titulo:'Short de Moletom', desc:'Cós elástico com cordão, bolsos laterais + cargo e etiqueta em couro (coruja).', preco:'Consultar', combo:null, img:'https://i.imgur.com/cN85bPu.jpeg', imagens:[ 'https://i.imgur.com/cN85bPu.jpeg','https://i.imgur.com/199Fuhv.jpeg','https://i.imgur.com/8Hc3DFP.jpeg','https://i.imgur.com/cF61r0e.jpeg','https://i.imgur.com/295V8Si.jpeg'], cores:['#556B2F','#F5F5DC','#000000','#FFDB58','#000080','#800000'], tamanhos:['P','M','G'] },
+      { id:'sarja-elast', grupo:'Bermuda de Sarja', titulo:'Bermuda de Sarja — Cós Elástico', desc:'Corte moderno e tecido confortável, com a praticidade do cós de elástico. Tamanhos: 38, 40, 42, 44.', preco:'Consultar', combo:null, img:'https://i.imgur.com/UJR5soC.jpeg', imagens:[ 'https://i.imgur.com/UJR5soC.jpeg','https://i.imgur.com/YUslcrP.jpeg','https://i.imgur.com/gTLEG9u.jpeg','https://i.imgur.com/rSjul7k.jpeg','https://i.imgur.com/q7Fpdnc.jpeg','https://i.imgur.com/eKo1WlT.jpeg'], cores:['#A9A9A9','#000000','#F5F5DC','#556B2F','#4682B4','#800000'], tamanhos:['38','40','42','44'] },
+      { id:'sarja-trad', grupo:'Bermuda de Sarja', titulo:'Bermuda de Sarja — Cós Tradicional', desc:'Corte moderno e tecido confortável, com o estilo clássico do cós tradicional. Tamanhos: 38, 40, 42, 44.', preco:'Consultar', combo:null, img:'https://i.imgur.com/7e3yAul.jpeg', imagens:[ 'https://i.imgur.com/7e3yAul.jpeg','https://i.imgur.com/FRzcP9G.jpeg','https://i.imgur.com/02PUtFO.jpeg','https://i.imgur.com/S05gJZv.jpeg','https://i.imgur.com/PR3WCkR.jpeg','https://i.imgur.com/OPxuKsA.jpeg','https://i.imgur.com/YMsKhZr.jpeg'], cores:['#A9A9A9','#000000','#F5F5DC','#556B2F','#4682B4','#800000'], tamanhos:['38','40','42','44'] },
+      { id:'plus', grupo:'Plus Size', titulo:'T‑Shirt Plus Size', desc:'30.1 penteada, gola canelada e reforço ombro a ombro. Tamanhos: XL(50), X1(52), X2(54).', preco:'R$ 90,00', combo:'3 por R$ 180,00', img:'https://i.imgur.com/1KBuplb.jpeg', imagens:[ 'https://i.imgur.com/1KBuplb.jpeg','https://i.imgur.com/1nxgGba.png','https://i.imgur.com/dXp0abc.jpeg','https://i.imgur.com/61wnId6.jpeg'], cores:['#000000','#FFFFFF'], tamanhos:['XL(50)','X1(52)','X2(54)'] },
+      { id:'bone', grupo:'Boné', titulo:'Boné Trucker Bordado', desc:'Traseira em tela com ajuste de tamanho. Logo bordado. Tamanho único.', preco:'R$ 69,90', combo:null, img:'https://i.imgur.com/m7qD4IY.png', imagens:[ 'https://i.imgur.com/m7qD4IY.png','https://i.imgur.com/JO5mIhd.jpeg','https://i.imgur.com/foM7ai9.jpeg','https://i.imgur.com/GyBmvLJ.jpeg','https://i.imgur.com/SVD2IJG.jpeg','https://i.imgur.com/icBHKQm.jpeg'], cores:['#000000','#FFFFFF'], tamanhos:['Único'] }
     ];
 
-    const ORDER = ['Básicas','Silkadas','Cotton','Tactel','Moletom','Sarja','Plus Size','Acessórios'];
     const GROUP_TO_ID = {
-      'Básicas':'basicas',
-      'Silkadas':'silkadas',
-      'Cotton':'conforto',
-      'Tactel':'tactel',
-      'Moletom':'moleton',
-      'Sarja':'sarja',
-      'Plus Size':'plus_size',
-      'Acessórios':'bone'
+      'Básicas':'basicas', 'Silkadas':'silkadas', 'Tshirt Conforto':'conforto', 'Tactel':'tactel', 'Moletom':'moleton',
+      'Bermuda de Sarja':'sarja', 'Plus Size':'plus_size', 'Boné':'bone'
     };
 
-    // ======= RENDER LISTA (inserindo ANTES de #feminino para manter ordem) =======
     const $content = document.getElementById('content');
     const dlg = document.getElementById('dlg');
     const dlgTitle = document.getElementById('dlgTitle');
@@ -278,44 +194,40 @@
     const dlgCombo = document.getElementById('dlgCombo');
     const dlgSwatches = document.getElementById('dlgSwatches');
     const dlgSizes = document.getElementById('dlgSizes');
-
+    
     function groupBy(arr,key){return arr.reduce((a,c)=>{(a[c[key]]||=[]).push(c);return a},{});}    
-
+    
     function render(){
       const groups = groupBy(ITENS,'grupo');
-      const beforeNode = document.getElementById('feminino'); // inserir antes desta seção
-      ORDER.forEach(g=>{
-        if(!groups[g]) return;
-        const sec = document.createElement('section'); sec.className='section'; sec.id = GROUP_TO_ID[g];
-        sec.innerHTML = `<h2>${g}<span class="underline"></span></h2>`;
+      const beforeNode = document.getElementById('feminino');
+      Object.keys(GROUP_TO_ID).forEach(groupName => {
+        if(!groups[groupName]) return;
+        const sec = document.createElement('section'); sec.className='section'; sec.id = GROUP_TO_ID[groupName];
+        sec.innerHTML = `<h2>${groupName}<span class="underline"></span></h2>`;
         const list = document.createElement('div'); list.className='list';
-        groups[g].forEach(it=>{
-          const art=document.createElement('article'); art.className='item';
+        groups[groupName].forEach(it=>{
+          const art=document.createElement('article'); art.className='item'; art.dataset.id = it.id;
           art.innerHTML = `
             <div class="row">
               <div class="meta">
                 <h3>${it.titulo}</h3>
-                <p>${it.desc}</p>
+                <p>${it.desc.substring(0, 70)}...</p>
                 ${it.preco?`<div class="price">${it.preco}</div>`:''}
-                <a href="#" class="more" data-id="${it.id}">Saiba mais</a>
               </div>
               <img class="thumb" src="${it.img}" alt="${it.titulo}">
-            </div>
-            <div class="icons"><span class="ic">i</span><span class="ic">♥</span><span class="ic">★</span></div>`;
+            </div>`;
           list.appendChild(art);
         });
         sec.appendChild(list);
-        // insere mantendo a ordem (sempre antes do mesmo nó de referência)
         $content.insertBefore(sec, beforeNode);
       });
     }
 
-    // ======= MODAL =======
     document.addEventListener('click',(e)=>{
-      const a=e.target.closest('a.more');
-      if(!a) return;
+      const item=e.target.closest('.item');
+      if(!item) return;
       e.preventDefault();
-      const it = ITENS.find(x=>x.id===a.dataset.id); if(!it) return;
+      const it = ITENS.find(x=>x.id===item.dataset.id); if(!it) return;
       openModal(it);
     });
 
@@ -324,6 +236,7 @@
       dlgDesc.textContent=item.desc;
       dlgPrice.textContent=item.preco||'';
       dlgCombo.textContent=item.combo||'';
+      if (!item.combo) { dlgCombo.style.display = 'none'; } else { dlgCombo.style.display = 'inline-block'; }
 
       dlgMain.src=item.imagens?.[0]||item.img;
       dlgThumbs.innerHTML='';
@@ -334,145 +247,51 @@
       });
 
       dlgSwatches.innerHTML='';
-      (item.cores||[]).forEach(c=>{ const s=document.createElement('span'); s.className='sw'; s.style.background=c; dlgSwatches.appendChild(s) });
+      if (item.cores && item.cores.length > 0) {
+          dlgSwatches.parentElement.style.display = 'block';
+          item.cores.forEach(c=>{ const s=document.createElement('span'); s.className='sw'; s.style.background=c; dlgSwatches.appendChild(s) });
+      } else { dlgSwatches.parentElement.style.display = 'none'; }
+      
       dlgSizes.innerHTML='';
-      (item.tamanhos||[]).forEach(s=>{ const el=document.createElement('span'); el.className='sz'; el.textContent=s; dlgSizes.appendChild(el) });
+       if (item.tamanhos && item.tamanhos.length > 0) {
+          dlgSizes.parentElement.style.display = 'block';
+          item.tamanhos.forEach(s=>{ const el=document.createElement('span'); el.className='sz'; el.textContent=s; dlgSizes.appendChild(el) });
+      } else { dlgSizes.parentElement.style.display = 'none'; }
 
       dlg.showModal();
     }
 
-    
-// ===== Smooth anchor only on click (not every programmatic scroll) =====
-document.addEventListener('click', (e) => {
-  const a = e.target.closest('.sub-nav a, .top-nav a');
-  if (!a) return;
-  const href = a.getAttribute('href');
-  if (href && href.startsWith('#')) {
-    e.preventDefault();
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
-    // também atualiza o estado ativo manualmente
-    if (a.closest('.sub-nav')) {
-      document.querySelectorAll('.sub-nav a').forEach(x => x.classList.toggle('active', x===a));
-      // scroll discreto do item (sem forcing smooth em todos eventos)
-      a.scrollIntoView({block:'nearest', inline:'center'});
-    }
-  }
-});
-
-    // ======= SCROLL SPY =======
-
-
-// ===== Scroll spy robusto (debounced) + pill slider =====
-(function(){
-  const links = Array.from(document.querySelectorAll('.sub-nav a'));
-  const sections = Array.from(document.querySelectorAll('.section[id]'));
-  const subnav = document.querySelector('.sub-nav');
-
-  // cria barra "pill" atrás dos links
-  const pill = document.createElement('div');
-  pill.className = 'pillbar';
-  if (subnav) subnav.prepend(pill);
-
-  let lastId = null;
-  let timer = null;
-  const OFFSET = 180; // igual ao scroll-padding-top
-
-  function centerNav(el){
-    if (!el) return;
-    // centraliza sem smooth pra não travar
-    el.scrollIntoView({inline:'center', block:'nearest'});
-  }
-
-  function positionPill(el){
-    if (!el || !subnav) return;
-    // posição relativa ao container scrollável
-    const left = el.offsetLeft - subnav.scrollLeft;
-    pill.style.width = el.offsetWidth + 'px';
-    pill.style.transform = 'translateX(' + left + 'px)';
-    pill.style.opacity = 1;
-  }
-
-  function pickActive(){
-    const Y = window.scrollY + OFFSET + 1;
-    let best = null, bestDelta = Infinity;
-    for (const sec of sections){
-      const top = sec.offsetTop;
-      const delta = Math.abs(Y - top);
-      if (delta < bestDelta){ best=sec; bestDelta=delta; }
-    }
-    return best ? best.id : null;
-  }
-
-  function applyActive(id, {center=true} = {}){
-    if (!id || id === lastId) return;
-    lastId = id;
-    let activeEl = null;
-    for (const a of links){
-      const is = a.getAttribute('href') === '#' + id;
-      a.classList.toggle('active', is);
-      if (is) activeEl = a;
-    }
-    if (center) centerNav(activeEl);
-    positionPill(activeEl);
-  }
-
-  function onScroll(){
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(() => {
-      applyActive(pickActive(), {center:true});
-    }, 120);
-  }
-
-  // init
-  window.addEventListener('scroll', onScroll, {passive:true});
-  window.addEventListener('resize', () => {
-    const a = document.querySelector('.sub-nav a.active') || links[0];
-    positionPill(a);
-  });
-  window.addEventListener('load', () => {
-    const id = pickActive();
-    applyActive(id || (sections[0] && sections[0].id) , {center:true});
-  });
-  setTimeout(() => {
-    const id = pickActive();
-    applyActive(id || (sections[0] && sections[0].id), {center:true});
-  }, 300);
-
-  // também atualiza ao clicar
-  document.addEventListener('click', (e) => {
-    const a = e.target.closest('.sub-nav a');
-    if (!a) return;
-    const id = a.getAttribute('href').slice(1);
-    applyActive(id, {center:true});
-  });
-})();
-;
-
-
+    // SCROLL SPY + PILL SLIDER
     document.addEventListener('DOMContentLoaded', () => {
       render();
 
       const sections = Array.from(document.querySelectorAll('.section[id]'));
       const navLinks = Array.from(document.querySelectorAll('.sub-nav a'));
-      if (sections.length === 0 || navLinks.length === 0) return;
+      const subnav = document.querySelector('.sub-nav');
+      if (sections.length === 0 || navLinks.length === 0 || !subnav) return;
 
-      let spyTick = false; const observer = new IntersectionObserver((entries) => {
-        if (spyTick) return; spyTick = true; requestAnimationFrame(()=>{ spyTick=false; entries.forEach(entry => {
+      const pill = document.createElement('div');
+      pill.className = 'pill-slider';
+      subnav.prepend(pill);
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id = entry.target.id;
+          const navLink = document.querySelector(`.sub-nav a[href="#${id}"]`);
+          if (!navLink) return;
+          
           if (entry.isIntersecting) {
-            const id = entry.target.id;
-            navLinks.forEach(link => {
-              link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-            });
-            const active = document.querySelector('.sub-nav a.active');
-            if (active) active.scrollIntoView({inline:'center',block:'nearest'});
+            navLinks.forEach(link => link.classList.remove('active'));
+            navLink.classList.add('active');
+            
+            pill.style.width = `${navLink.offsetWidth}px`;
+            pill.style.transform = `translateX(${navLink.offsetLeft}px)`;
           }
         });
-      });
-    }, { rootMargin: '-55% 0px -45% 0px', threshold: 0.25 });
+      }, { rootMargin: '-50% 0px -50% 0px' });
 
       sections.forEach(section => {
-        if (document.querySelector(`.sub-nav a[href="#${section.id}"]`)) {
+        if(document.querySelector(`.sub-nav a[href="#${section.id}"]`)) {
           observer.observe(section);
         }
       });
@@ -480,3 +299,4 @@ document.addEventListener('click', (e) => {
   </script>
 </body>
 </html>
+o que acha desse codigo
