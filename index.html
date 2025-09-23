@@ -4,91 +4,83 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>Saggio — Catálogo (Mobile • Dark)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Saggio — Catálogo Digital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0f1012;
-      --paper:#14161a;
-      --card:#1b1e23;
-      --ink:#f3f3f3;
-      --muted:#b9bdc2;
-      --border:#262a31;
-      --accent:#e30613;
-      --glow:0 0 0 transparent, 0 0 18px rgba(227,6,19,.16), 0 0 28px rgba(227,6,19,.12);
-      --shadow:0 8px 24px rgba(0,0,0,.35);
-      --pill:#20242b;
+      --bg:#0F1012;
+      --paper:#14161A;
+      --card:#1B1E23;
+      --ink:#F3F3F3;
+      --muted:#B9BDC2;
+      --border:#2A2D33;
+      --accent:#E30613;
+      --shadow:0 6px 14px rgba(0,0,0,.5);
     }
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth; scroll-padding-top: 164px;}
-    body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 'Poppins', system-ui}
+    html{scroll-behavior:smooth; scroll-padding-top: 180px;}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.55 'Poppins', system-ui, Arial}
     img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
-    .container{max-width:760px;margin:0 auto}
-    main{padding:12px 12px 80px}
-
-    /* Header */
-    header.site-header{position:sticky;top:0;z-index:1000;background:var(--bg);box-shadow:0 2px 10px rgba(0,0,0,.35)}
-    .logo-bar{background:#000;display:flex;justify-content:center;align-items:center;padding:12px 0;border-bottom:1px solid #121212}
-    .header-logo{height:46px;width:auto;filter: drop-shadow(0 4px 16px rgba(227,6,19,.35));}
-    .top-nav{display:flex;justify-content:center;gap:10px;margin:8px 12px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
+    .container{max-width:980px;margin:0 auto;padding:0 16px}
+    main{padding:20px 5%}
+    
+    header.site-header{position:sticky;top:0;z-index:1000;background:var(--paper);box-shadow:0 2px 4px rgba(0,0,0,.4)}
+    .logo-bar{background:#000;display:flex;justify-content:center;align-items:center;padding:14px 0}
+    .header-logo{height:56px;width:auto}
+    .top-nav{display:flex;justify-content:center;gap:12px;margin:10px 5% 12px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:10px;-ms-overflow-style:none;scrollbar-width:none} 
     .top-nav::-webkit-scrollbar{display:none}
-    .nav-button{flex:0 0 auto;background:var(--accent);color:#fff;padding:8px 16px;border-radius:999px;font-weight:700;box-shadow:var(--glow);transition:.15s transform ease, .2s box-shadow ease}
-    .nav-button:active{transform:translateY(1px); box-shadow:0 0 0 transparent}
-
-    .sub-nav-wrapper{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:8px 12px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;background:var(--bg)}
+    .nav-button{flex:0 0 auto;background:var(--accent);color:#fff;padding:10px 24px;border-radius:999px;font-weight:700;box-shadow:0 0 12px rgba(227,6,19,.6); transition: transform 0.2s ease;}
+    .nav-button:hover{transform:translateY(-1px)}
+    
+    .sub-nav-wrapper{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:10px 5%;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;background:var(--paper)}
     .sub-nav-wrapper::-webkit-scrollbar{display:none}
-    .sub-nav{display:flex;gap:18px;justify-content:flex-start}
-    .sub-nav a{color:var(--muted);font-weight:600;white-space:nowrap;padding:6px 8px;border-radius:8px;transition:.2s background, .2s color}
-    .sub-nav a.active{color:#fff;background:var(--pill);box-shadow: inset 0 0 0 1px var(--border)}
-
-    /* Seções e cards (mobile first) */
-    .section{padding:16px 0}
+    .sub-nav{display:flex;gap:22px;justify-content:flex-start; position: relative;}
+    @media (min-width:768px){ .sub-nav{justify-content:center} }
+    .sub-nav a{color:var(--muted);font-weight:600;white-space:nowrap;transition:color .2s; position: relative; z-index: 1; padding: 6px 10px;}
+    .sub-nav a.active{color:var(--accent); font-weight: 700;}
+    
+    .section{padding:18px 5%}
     .section + .section{border-top:1px solid var(--border)}
-    .section h2{margin:0 0 10px;color:#fff;font-size:1.18rem;display:flex;align-items:center;gap:10px;padding:0 4px;letter-spacing:.2px}
-    .underline{flex:1;height:2px;background:linear-gradient(90deg,var(--accent),transparent);opacity:.5}
+    .section h2{margin:0 0 10px;color:var(--accent);font-size:clamp(18px,3.6vw,26px);display:flex;align-items:center;gap:10px}
+    .underline{flex:1;height:2px;background:var(--accent);opacity:.3}
     .list{display:flex;flex-direction:column;gap:12px}
-    .item{background:var(--paper);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:12px;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease}
-    .item:active{transform:scale(.996)}
-    .row{display:grid;grid-template-columns:1fr 92px;gap:12px;align-items:center}
-    .meta h3{margin:0 0 6px;font:700 1rem/1.25 'Poppins'}
+    .item{background:var(--card);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);padding:12px; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease;}
+    .item:hover {transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,.7);}
+    .row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+    .meta h3{margin:0 0 4px;font:700 1rem/1.25 'Poppins', system-ui}
     .meta p{margin:0;color:var(--muted);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-    .price{margin-top:8px;font-weight:700;color:#fff}
-    .thumb{width:92px;height:92px;border-radius:12px;object-fit:cover;border:1px solid var(--border);background:#0c0d0f}
-
-    .badge{font-size:.8rem;background:var(--pill);border:1px solid var(--border);padding:4px 8px;border-radius:999px;color:#e9edf2}
-
-    /* Modal */
-    dialog{border:none;border-radius:18px;padding:0;background:var(--paper);color:var(--ink);max-width:920px;width:96%;box-shadow:var(--shadow)}
-    dialog::backdrop{background:rgb(0 0 0/.6)}
-    .modal-head{display:flex;align-items:center;justify-content:space-between;padding:12px;border-bottom:1px solid var(--border)}
+    .price{margin-top:8px;font-weight:700;color:var(--accent)}
+    .thumb{width:76px;height:76px;border-radius:8px;object-fit:cover;border:1px solid var(--border);background:#000}
+    .actions{display:flex;gap:8px;margin-top:8px}
+    .btn-circle{border:none;background:var(--paper);border:1px solid var(--border);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted)}
+    .btn-circle:hover{background:var(--accent);color:#fff}
+    
+    dialog{border:none;border-radius:14px;padding:0;background:var(--card);color:var(--ink);max-width:1100px;width:98%;box-shadow:var(--shadow)}
+    dialog::backdrop{background:rgb(0 0 0/.55)}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--border)}
     .modal-title{margin:0;font:700 1.05rem/1.25 'Poppins'}
-    .close-x{background:#0f1115;border:1px solid var(--border);color:#fff;border-radius:999px;padding:6px 10px;cursor:pointer}
-
-    .modal-body{display:flex;flex-direction:column;gap:12px;padding:12px}
-    .mediaPanel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px;max-height:70vh;overflow:auto}
-    .main-wrap{display:grid;place-items:center;margin-bottom:8px}
-    .main-img{width:100%;max-height:56vh;object-fit:contain;border-radius:12px;background:#0c0d0f}
-    .thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
-    .timg{width:100%;height:84px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#0c0d0f}
+    .close-x{background:var(--paper);border:1px solid var(--border);border-radius:999px;padding:6px 10px;cursor:pointer;color:var(--muted)}
+    .modal-body{display:grid;grid-template-columns:1.6fr 1fr;gap:12px;padding:12px}
+    @media (max-width:900px){ .modal-body{grid-template-columns:1fr} }
+    .mediaPanel{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:10px;max-height:80vh;overflow:auto}
+    .main-wrap{display:grid;place-items:center;margin-bottom:10px}
+    .main-img{width:100%;max-height:60vh;object-fit:contain;border-radius:10px;background:#000}
+    .thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px}
+    .timg{width:100%;height:90px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#000}
     .timg.active{border-color:var(--accent)}
-
-    .info{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;max-height:70vh;overflow:auto}
-    .desc{color:var(--muted);margin:6px 0}
-    .price-line{display:flex;align-items:center;gap:8px;margin:8px 0;flex-wrap:wrap}
-
-    .swatches{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
-    .sw{width:24px;height:24px;border-radius:999px;border:2px solid #434a55;background:#fff}
-    .sizes{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
-    .sz{border:1px solid var(--border);padding:8px 12px;border-radius:10px;background:#0f1115;color:#fff}
-
-    .actions{display:flex;gap:10px;margin-top:10px}
-    .btn{cursor:pointer;border:1px solid var(--border);border-radius:12px;padding:12px 16px;font-weight:800;background:#0f1115;color:#fff}
-    .btn.primary{background:var(--accent);border-color:transparent;box-shadow:var(--glow)}
-    .btn:active{transform:translateY(1px)}
+    .info{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:12px;max-height:80vh;overflow:auto}
+    .desc{color:var(--muted);margin:8px 0}
+    .price-line{font-weight:700;margin:8px 0;color:var(--accent)}
+    .swatches{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+    .sw{width:24px;height:24px;border-radius:999px;border:2px solid #bda78f}
+    .sizes{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+    .sz{border:1px solid var(--border);padding:6px 10px;border-radius:8px;background:#000;color:var(--ink)}
+    .btn-close{margin-top:10px;padding:10px 18px;border-radius:999px;background:var(--accent);color:#fff;font-weight:700;border:none;cursor:pointer}
+    .btn-close:hover{background:#b50510}
   </style>
 </head>
 <body>
@@ -96,22 +88,24 @@
     <div class="logo-bar">
       <img src="https://i.imgur.com/8LK230j.png" alt="Saggio" class="header-logo" />
     </div>
-    <div class="top-nav">
-      <a href="#masculino" class="nav-button">Masculino</a>
-      <a href="#feminino" class="nav-button">Feminino</a>
-      <a href="#infantil" class="nav-button">Infantil</a>
-    </div>
-    <div class="sub-nav-wrapper">
-      <nav class="sub-nav" id="subnav">
-        <a href="#basicas">Básicas</a>
-        <a href="#silkadas">Silkadas</a>
-        <a href="#conforto">Tshirt Conforto</a>
-        <a href="#tactel">Tactel</a>
-        <a href="#moleton">Moletom</a>
-        <a href="#sarja">Bermuda de Sarja</a>
-        <a href="#plus_size">Plus Size</a>
-        <a href="#bone">Boné</a>
-      </nav>
+    <div class="header-content">
+        <div class="top-nav">
+          <a href="#masculino" class="nav-button">Masculino</a>
+          <a href="#feminino" class="nav-button">Feminino</a>
+          <a href="#infantil" class="nav-button">Infantil</a>
+        </div>
+        <div class="sub-nav-wrapper">
+          <nav class="sub-nav" id="subnav">
+            <a href="#basicas">Básicas</a>
+            <a href="#silkadas">Silkadas</a>
+            <a href="#conforto">Tshirt Conforto</a>
+            <a href="#tactel">Tactel</a>
+            <a href="#moleton">Moletom</a>
+            <a href="#sarja">Bermuda de Sarja</a>
+            <a href="#plus_size">Plus Size</a>
+            <a href="#bone">Boné</a>
+          </nav>
+        </div>
     </div>
   </header>
 
@@ -121,11 +115,11 @@
     </section>
     <section id="feminino" class="section">
       <h2>Coleção Feminina <span class="underline"></span></h2>
-      <p style="color:var(--muted); padding:0 4px">Conteúdo em breve.</p>
+      <p style="color:var(--muted)">Conteúdo em breve.</p>
     </section>
     <section id="infantil" class="section">
       <h2>Coleção Infantil <span class="underline"></span></h2>
-      <p style="color:var(--muted); padding:0 4px">Conteúdo em breve.</p>
+      <p style="color:var(--muted)">Conteúdo em breve.</p>
     </section>
   </main>
 
@@ -147,223 +141,11 @@
           <strong id="dlgPrice"></strong>
           <span id="dlgCombo" class="badge"></span>
         </div>
-        <div>
-          <strong>Cores</strong>
-          <div id="dlgSwatches" class="swatches"></div>
-        </div>
-        <div>
-          <strong>Tamanhos</strong>
-          <div id="dlgSizes" class="sizes"></div>
-        </div>
-        <div class="actions">
-          <button class="btn" type="button" onclick="dlg.close()">Fechar</button>
-        </div>
+        <div id="dlgSwatches" class="swatches"></div>
+        <div id="dlgSizes" class="sizes"></div>
+        <button class="btn-close" onclick="dlg.close()">Fechar</button>
       </div>
     </div>
   </dialog>
-
-  <script>
-    /* Dados completos (modal com galeria/cores/tamanhos) */
-    const ITENS = [
-      { id:'tee-basica', grupo:'Básicas', titulo:'T‑Shirt Básica (14 Cores)', desc:'Malha 100% algodão, fio 30.1 penteada, gola canelada e reforço ombro a ombro. Tamanhos: P, M, G, GG.', preco:'R$ 120,00 (combo)', combo:'3 por R$ 120,00', img:'https://i.imgur.com/m5xnpEl.jpeg',
-        imagens:['https://i.imgur.com/m5xnpEl.jpeg','https://i.imgur.com/Xt8vcm9.jpeg','https://i.imgur.com/xd8fdAD.jpeg','https://i.imgur.com/Ud5VlKu.jpeg','https://i.imgur.com/EECbuFI.jpeg'],
-        cores:['#556B2F','#BCB8B1','#ACE1AF','#89CFF0','#000080','#A9A9A9','#000000','#FFDB58','#D8D0C8','#F5F5DC','#FFFFFF','#FFB6C1','#DE3163','#FF0000'],
-        tamanhos:['P','M','G','GG'] },
-      { id:'tee-silk', grupo:'Silkadas', titulo:'T‑Shirt Silkada', desc:'Silk prensado com toque leve, malha 100% algodão. Várias cores. Tamanhos: P, M, G, GG.', preco:'R$ 90,00', combo:'2 por R$ 130,00', img:'https://i.imgur.com/yIRfwHy.jpeg',
-        imagens:['https://i.imgur.com/yIRfwHy.jpeg','https://i.imgur.com/4p6EoEP.jpeg','https://i.imgur.com/PqTR1T5.jpeg','https://i.imgur.com/d7sYZSw.jpeg','https://i.imgur.com/zNCMKH7.jpeg','https://i.imgur.com/117XZ4B.jpeg','https://i.imgur.com/qJDieg8.jpeg','https://i.imgur.com/yecDYdx.jpeg'],
-        cores:['#000000','#FFFFFF','#808080'], tamanhos:['P','M','G','GG'] },
-      { id:'cotton', grupo:'Tshirt Conforto', titulo:'T‑Shirt Conforto (Cotton)', desc:'96% algodão | 4% elastano. Toque macio, amassa menos e pigmentação firme.', preco:'R$ 90,00', combo:'2 por R$ 150,00', img:'https://i.imgur.com/Hk4wAbO.jpeg',
-        imagens:['https://i.imgur.com/Hk4wAbO.jpeg','https://i.imgur.com/Wy7xhOE.jpeg','https://i.imgur.com/XpLpMvP.jpeg','https://i.imgur.com/Tvfd3lt.jpeg','https://i.imgur.com/gmCXjJU.jpeg','https://i.imgur.com/Bs21P1C.jpeg','https://i.imgur.com/gpNvmPW.jpeg','https://i.imgur.com/Svwbu08.jpeg','https://i.imgur.com/kc5G16Z.jpeg','https://i.imgur.com/LWs7zqt.jpeg'],
-        cores:['#FFFFFF','#000000','#A9A9A9'], tamanhos:['P','M','G','GG'] },
-      { id:'tactel', grupo:'Tactel', titulo:'Short de Tactel', desc:'Forro antialérgico, cordão regulador, costura tripla. Tamanhos: P, M, G, XL.', preco:'R$ 85,00', combo:'2 por R$ 150,00', img:'https://i.imgur.com/ehQjcEw.jpeg',
-        imagens:['https://i.imgur.com/ehQjcEw.jpeg','https://i.imgur.com/9nRtnL2.jpeg','https://i.imgur.com/WsVp1Fd.jpeg','https://i.imgur.com/1mqizXj.jpeg','https://i.imgur.com/yB1cJi7.jpeg','https://i.imgur.com/TtXbRfm.png','https://i.imgur.com/6skv07Q.jpeg'],
-        cores:['#FFFFFF','#D4AF37','#C2B280','#800000','#B2F5E9','#7FFFD4','#006400','#4682B4','#000080'], tamanhos:['P','M','G','XL'] },
-      { id:'moletom', grupo:'Moletom', titulo:'Short de Moletom', desc:'Cós elástico com cordão, bolsos laterais + cargo e etiqueta em couro (coruja).', preco:'Consultar', combo:null, img:'https://i.imgur.com/cN85bPu.jpeg',
-        imagens:['https://i.imgur.com/cN85bPu.jpeg','https://i.imgur.com/199Fuhv.jpeg','https://i.imgur.com/8Hc3DFP.jpeg','https://i.imgur.com/cF61r0e.jpeg','https://i.imgur.com/295V8Si.jpeg'],
-        cores:['#556B2F','#F5F5DC','#000000','#FFDB58','#000080','#800000'], tamanhos:['P','M','G'] },
-      { id:'sarja-elast', grupo:'Bermuda de Sarja', titulo:'Bermuda de Sarja — Cós Elástico', desc:'Corte moderno e tecido confortável, com a praticidade do cós de elástico. Tamanhos: 38, 40, 42, 44.', preco:'Consultar', combo:null, img:'https://i.imgur.com/UJR5soC.jpeg',
-        imagens:['https://i.imgur.com/UJR5soC.jpeg','https://i.imgur.com/YUslcrP.jpeg','https://i.imgur.com/gTLEG9u.jpeg','https://i.imgur.com/rSjul7k.jpeg','https://i.imgur.com/q7Fpdnc.jpeg','https://i.imgur.com/eKo1WlT.jpeg'],
-        cores:['#A9A9A9','#000000','#F5F5DC','#556B2F','#4682B4','#800000'], tamanhos:['38','40','42','44'] },
-      { id:'sarja-trad', grupo:'Bermuda de Sarja', titulo:'Bermuda de Sarja — Cós Tradicional', desc:'Corte moderno e tecido confortável, com o estilo clássico do cós tradicional. Tamanhos: 38, 40, 42, 44.', preco:'Consultar', combo:null, img:'https://i.imgur.com/7e3yAul.jpeg',
-        imagens:['https://i.imgur.com/7e3yAul.jpeg','https://i.imgur.com/FRzcP9G.jpeg','https://i.imgur.com/02PUtFO.jpeg','https://i.imgur.com/S05gJZv.jpeg','https://i.imgur.com/PR3WCkR.jpeg','https://i.imgur.com/OPxuKsA.jpeg','https://i.imgur.com/YMsKhZr.jpeg'],
-        cores:['#A9A9A9','#000000','#F5F5DC','#556B2F','#4682B4','#800000'], tamanhos:['38','40','42','44'] },
-      { id:'plus', grupo:'Plus Size', titulo:'T‑Shirt Plus Size', desc:'30.1 penteada, gola canelada e reforço ombro a ombro. Tamanhos: XL(50), X1(52), X2(54).', preco:'R$ 90,00', combo:'3 por R$ 180,00', img:'https://i.imgur.com/1KBuplb.jpeg',
-        imagens:['https://i.imgur.com/1KBuplb.jpeg','https://i.imgur.com/1nxgGba.png','https://i.imgur.com/dXp0abc.jpeg','https://i.imgur.com/61wnId6.jpeg'],
-        cores:['#000000','#FFFFFF'], tamanhos:['XL(50)','X1(52)','X2(54)'] },
-      { id:'bone', grupo:'Boné', titulo:'Boné Trucker Bordado', desc:'Traseira em tela com ajuste de tamanho. Logo bordado. Tamanho único.', preco:'R$ 69,90', combo:null, img:'https://i.imgur.com/m7qD4IY.png',
-        imagens:['https://i.imgur.com/m7qD4IY.png','https://i.imgur.com/JO5mIhd.jpeg','https://i.imgur.com/foM7ai9.jpeg','https://i.imgur.com/GyBmvLJ.jpeg','https://i.imgur.com/SVD2IJG.jpeg','https://i.imgur.com/icBHKQm.jpeg'],
-        cores:['#000000','#FFFFFF'], tamanhos:['Único'] }
-    ];
-
-    const GROUP_TO_ID = {
-      'Básicas':'basicas', 'Silkadas':'silkadas', 'Tshirt Conforto':'conforto', 'Tactel':'tactel', 'Moletom':'moleton',
-      'Bermuda de Sarja':'sarja', 'Plus Size':'plus_size', 'Boné':'bone'
-    };
-
-    const $content = document.getElementById('content');
-    const dlg = document.getElementById('dlg');
-    const dlgTitle = document.getElementById('dlgTitle');
-    const dlgMain  = document.getElementById('dlgMain');
-    const dlgThumbs= document.getElementById('dlgThumbs');
-    const dlgDesc  = document.getElementById('dlgDesc');
-    const dlgPrice = document.getElementById('dlgPrice');
-    const dlgCombo = document.getElementById('dlgCombo');
-    const dlgSwatches = document.getElementById('dlgSwatches');
-    const dlgSizes = document.getElementById('dlgSizes');
-
-    /* Renderização dos cards por grupo */
-    function groupBy(arr,key){return arr.reduce((a,c)=>{(a[c[key]]||=[]).push(c);return a},{});}
-    function render(){
-      const groups = groupBy(ITENS,'grupo');
-      const beforeNode = document.getElementById('feminino');
-      Object.keys(GROUP_TO_ID).forEach(groupName => {
-        if(!groups[groupName]) return;
-        const sec = document.createElement('section'); sec.className='section'; sec.id = GROUP_TO_ID[groupName];
-        sec.innerHTML = `<h2>${groupName}<span class="underline"></span></h2>`;
-        const list = document.createElement('div'); list.className='list';
-        groups[groupName].forEach(it=>{
-          const art=document.createElement('article'); art.className='item'; art.dataset.id = it.id;
-          art.innerHTML = `
-            <div class="row">
-              <div class="meta">
-                <h3>${it.titulo}</h3>
-                <p>${it.desc}</p>
-                ${it.preco?`<div class="price">${it.preco} ${it.combo?`<span class='badge'>${it.combo}</span>`:''}</div>`:''}
-                <a href="#" class="more" style="font-weight:600;text-decoration:underline">Saiba mais</a>
-              </div>
-              <img class="thumb" src="${it.img}" alt="${it.titulo}">
-            </div>`;
-          list.appendChild(art);
-        });
-        sec.appendChild(list);
-        $content.insertBefore(sec, beforeNode);
-      });
-    }
-
-    /* Modal completo */
-    function openModal(item){
-      dlgTitle.textContent=item.titulo;
-      dlgDesc.textContent=item.desc;
-      dlgPrice.textContent=item.preco||'';
-      dlgCombo.textContent=item.combo||'';
-      dlgCombo.style.display = item.combo ? 'inline-block' : 'none';
-
-      dlgMain.src=item.imagens?.[0]||item.img;
-      dlgThumbs.innerHTML='';
-      (item.imagens?.length?item.imagens:[item.img]).forEach((url,i)=>{
-        const t=document.createElement('img'); t.src=url; t.className='timg'+(i===0?' active':''); t.loading='lazy';
-        t.onclick=()=>{ dlgMain.src=url; dlgThumbs.querySelectorAll('.timg').forEach(x=>x.classList.remove('active')); t.classList.add('active'); };
-        dlgThumbs.appendChild(t);
-      });
-
-      dlgSwatches.innerHTML='';
-      if (item.cores && item.cores.length > 0) {
-        dlgSwatches.parentElement.style.display = 'block';
-        item.cores.forEach(c=>{ const s=document.createElement('span'); s.className='sw'; s.style.background=c; dlgSwatches.appendChild(s) });
-      } else { dlgSwatches.parentElement.style.display = 'none'; }
-
-      dlgSizes.innerHTML='';
-      if (item.tamanhos && item.tamanhos.length > 0) {
-        dlgSizes.parentElement.style.display = 'block';
-        item.tamanhos.forEach(s=>{ const el=document.createElement('span'); el.className='sz'; el.textContent=s; dlgSizes.appendChild(el) });
-      } else { dlgSizes.parentElement.style.display = 'none'; }
-
-      dlg.showModal();
-    }
-
-    /* Eventos */
-    document.addEventListener('click',(e)=>{
-      const item=e.target.closest('.item');
-      if(!item) return;
-      e.preventDefault();
-      const it = ITENS.find(x=>x.id===item.dataset.id); if(!it) return;
-      openModal(it);
-    });
-
-    /* Scroll-spy que move a subnav junto */
-    document.addEventListener('DOMContentLoaded', () => {
-      render();
-
-      const sections = Array.from(document.querySelectorAll('.section[id]'));
-      const links = Array.from(document.querySelectorAll('.sub-nav a'));
-      const scroller = document.querySelector('.sub-nav-wrapper');
-      const rail = document.querySelector('.sub-nav');
-      if (!sections.length || !links.length || !scroller || !rail) return;
-
-      document.addEventListener('click', (e) => {
-        const a = e.target.closest('.sub-nav a, .top-nav a');
-        if (!a) return;
-        const href = a.getAttribute('href');
-        if (href && href.startsWith('#')){
-          e.preventDefault();
-          const el = document.querySelector(href);
-          if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
-          isAutoScrolling = true;
-          setTimeout(()=>{isAutoScrolling=false;}, 300);
-        }
-      });
-
-      const header = document.querySelector('.site-header');
-      const headerOffset = () => (header?.offsetHeight || 160);
-
-      let lastId = null;
-      let ticking = false;
-      let isAutoScrolling = false;
-
-      function pickActiveId(){
-        const off = headerOffset();
-        let bestId=null, bestScore=Infinity;
-        for (const sec of sections){
-          const dist = Math.abs(sec.getBoundingClientRect().top - off);
-          if (dist < bestScore){ bestScore = dist; bestId = sec.id; }
-        }
-        return bestId;
-      }
-
-      function centerNav(el, smooth=true){
-        if (!el) return;
-        const target = el.offsetLeft - (scroller.clientWidth - el.offsetWidth)/2;
-        const max = rail.scrollWidth - scroller.clientWidth;
-        const clamped = Math.max(0, Math.min(target, max));
-        scroller.scrollTo({left: clamped, behavior: smooth ? 'smooth' : 'auto'});
-      }
-
-      function applyActive(id, {center=true, smooth=true} = {}){
-        let activeEl = null;
-        for (const a of links){
-          const ok = a.getAttribute('href') === '#' + id;
-          a.classList.toggle('active', ok);
-          if (ok) activeEl = a;
-        }
-        if (center) centerNav(activeEl, smooth);
-      }
-
-      function onScroll(){
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-          ticking = false;
-          const id = pickActiveId();
-          if (id && id !== lastId){
-            lastId = id;
-            applyActive(id, {center:true, smooth: !isAutoScrolling});
-          }
-        });
-      }
-
-      const initId = pickActiveId() || links[0].getAttribute('href').slice(1);
-      lastId = initId;
-      applyActive(initId, {center:true, smooth:false});
-
-      window.addEventListener('scroll', onScroll, {passive:true});
-      window.addEventListener('resize', () => {
-        const id = pickActiveId();
-        if (id){
-          lastId = id;
-          applyActive(id, {center:true, smooth:false});
-        }
-      });
-    });
-  </script>
 </body>
 </html>
