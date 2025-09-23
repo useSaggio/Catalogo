@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -19,7 +20,7 @@
       --shadow:0 6px 14px rgba(60,47,39,.12);
     }
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth; scroll-padding-top: 180px;}
+    html{scroll-behavior:auto; scroll-padding-top: 180px;}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.55 'Poppins', system-ui, Arial}
     img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
@@ -32,13 +33,12 @@
     .top-nav{display:flex;justify-content:center;gap:12px;margin:10px 5% 12px;flex-wrap:nowrap;overflow-x:auto;padding:0 10px;-ms-overflow-style:none;scrollbar-width:none} .top-nav::-webkit-scrollbar{display:none}
     .nav-button{flex:0 0 auto;background:#a87c67;color:#fff;padding:10px 24px;border-radius:999px;font-weight:700;box-shadow:0 4px 10px rgba(0,0,0,.1)}
     .nav-button:hover{transform:translateY(-1px)}
-    .sub-nav-wrapper{border-top:1px solid var(--card);border-bottom:1px solid var(--card);padding:10px 5%;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;background:var(--bg)}
+    .sub-nav-wrapper{border-top:1px solid var(--card);border-bottom:1px solid var(--card);padding:10px 5%;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;background:var(--bg);backdrop-filter:saturate(120%) blur(2px)}
     .sub-nav-wrapper::-webkit-scrollbar{display:none}
-    .sub-nav{display:flex;gap:22px;justify-content:flex-start;scroll-snap-type:x proximity} .sub-nav a{scroll-snap-align:center}
+    .sub-nav{position:relative;display:flex;gap:22px;justify-content:flex-start;scroll-snap-type:x proximity} .sub-nav a{scroll-snap-align:center}
     @media (min-width:768px){ .sub-nav{justify-content:center} }
-    .sub-nav a{color:#7A5C4E;font-weight:600;padding-bottom:3px;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
-    .sub-nav a:hover,.sub-nav a.active{color:var(--ink);border-bottom-color:var(--ink);font-weight:700;position:relative}
-.sub-nav a.active::after{content:'';position:absolute;left:0;right:0;bottom:-6px;height:3px;background:var(--ink);border-radius:2px}
+    .sub-nav a{color:#7A5C4E;font-weight:600;padding:6px 2px 10px;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s, transform .2s}
+    .sub-nav a:hover,.sub-nav a.active{color:var(--ink);font-weight:700;transform:translateY(-1px)}
     /* ======= LISTA ======= */
     .section{padding:18px 5%}
     .section + .section{border-top:1px solid var(--border)}
@@ -82,6 +82,21 @@
   
 @media (max-width:480px){
   .nav-button{font-size:0.85rem;padding:8px 16px}
+}
+
+
+/* Barra deslizante (ink bar) sob o item ativo - super leve */
+.sub-nav .inkbar{
+  position:absolute;
+  left:0; bottom:0;
+  height:3px; width:0;
+  background:var(--ink);
+  border-radius:2px;
+  transform:translateX(0);
+  transition:transform .25s ease, width .25s ease;
+}
+@media (prefers-reduced-motion: reduce){
+  .sub-nav .inkbar{transition:none}
 }
 
 </style>
@@ -340,45 +355,67 @@ document.addEventListener('click', (e) => {
 
     // ======= SCROLL SPY =======
 
-// ===== Scroll spy robusto (rAF + cálculo do topo) =====
-(function(){
-  const links = Array.from(document.querySelectorAll('.sub-nav a'));
-  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
-  let ticking = false;
 
-  function headerOffset(){ return 180; } // igual ao scroll-padding-top
-  function sections(){
-    return Array.from(document.querySelectorAll('.section[id]'));
+// ===== Scroll spy robusto (debounced) =====
+(function(){
+  // cria inkbar
+  const subnav = document.querySelector('.sub-nav');
+  let ink = document.createElement('div');
+  ink.className = 'inkbar';
+  subnav && subnav.appendChild(ink);
+
+  function positionInkBar(target){
+    if (!subnav || !ink || !target) return;
+    const left = target.offsetLeft - subnav.scrollLeft;
+    const width = target.offsetWidth;
+    ink.style.width = width + 'px';
+    ink.style.transform = 'translateX(' + left + 'px)';
   }
 
+  const links = Array.from(document.querySelectorAll('.sub-nav a'));
+  const sections = Array.from(document.querySelectorAll('.section[id]'));
+  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
   let lastId = null;
-  function updateActive(){
-    const Y = window.scrollY + headerOffset() + 1;
+  let timer = null;
+  const OFFSET = 180; // igual ao scroll-padding-top
+
+  function pickActive(){
+    const Y = window.scrollY + OFFSET + 1;
     let best = null, bestDelta = Infinity;
-    sections().forEach(sec => {
+    for (const sec of sections){
       const top = sec.offsetTop;
       const delta = Math.abs(Y - top);
-      if (delta < bestDelta){ best=sec; bestDelta=delta; }
-    });
-    if (!best) return;
-    const id = best.id;
-    if (id === lastId) return; // nada mudou
+      if (delta < bestDelta){ best = sec; bestDelta = delta; }
+    }
+    return best ? best.id : null;
+  }
+
+  function applyActive(id, {centerNav=false} = {}){
+    if (!id || id === lastId) return;
     lastId = id;
     links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
-    const active = document.querySelector('.sub-nav a.active');
-    if (active) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+    if (centerNav){
+      const active = document.querySelector('.sub-nav a.active');
+      if (active){ active.scrollIntoView({inline:'center', block:'nearest'}); positionInkBar(active); }
+    } else {
+      const active = document.querySelector('.sub-nav a.active');
+      if (active) positionInkBar(active);
+    }
   }
 
   function onScroll(){
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => { ticking = false; updateActive(); });
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      const id = pickActive();
+      applyActive(id, {centerNav:true});
+    }, 120); // atualiza quando o usuário dá uma breve pausa
   }
 
   window.addEventListener('scroll', onScroll, {passive:true});
-  window.addEventListener('load', updateActive);
-  setTimeout(updateActive, 300);
+  window.addEventListener('load', () => { applyActive(pickActive(), {centerNav:true}); const a=document.querySelector('.sub-nav a.active')||document.querySelector('.sub-nav a'); positionInkBar(a); });
+  setTimeout(() => applyActive(pickActive(), {centerNav:true}), 300);
 })();
+
 
     document.addEventListener('DOMContentLoaded', () => {
       render();
