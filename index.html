@@ -19,10 +19,11 @@
       --shadow:0 6px 14px rgba(60,47,39,.12);
     }
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth; scroll-padding-top: 180px;}
+    html{scroll-behavior:auto; scroll-padding-top: 180px;}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.55 'Poppins', system-ui, Arial}
     img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
+    .container{max-width:980px;margin:0 auto;padding:0 16px}
     main{padding:20px 5%}
     
     header.site-header{position:sticky;top:0;z-index:1000;background:var(--bg);box-shadow:0 2px 4px rgba(0,0,0,.05)}
@@ -37,20 +38,11 @@
     .sub-nav-wrapper::-webkit-scrollbar{display:none}
     .sub-nav{display:flex;gap:22px;justify-content:flex-start; position: relative;}
     @media (min-width:768px){ .sub-nav{justify-content:center} }
-    .sub-nav a{color:#7A5C4E;font-weight:600;white-space:nowrap;transition:color .2s; position: relative; z-index: 1; padding: 6px 10px;}
-    .sub-nav a.active{color:var(--ink); font-weight: 700;}
 
-    .pill-slider {
-        position: absolute;
-        top: 3px;
-        height: 32px;
-        border-radius: 999px;
-        background: rgba(90,62,43,0.12);
-        box-shadow: 0 2px 6px rgba(0,0,0,.08) inset, 0 1px 2px rgba(0,0,0,.06);
-        transition: transform .3s ease, width .3s ease;
-        pointer-events: none;
-    }
-    
+    /* links da subnav apenas com bold no ativo */
+    .sub-nav a{color:#7A5C4E;font-weight:600;white-space:nowrap;position: relative; z-index: 1; padding: 6px 10px}
+    .sub-nav a.active{color:var(--ink); font-weight:700;}
+
     .section{padding:18px 5%}
     .section + .section{border-top:1px solid var(--border)}
     .section h2{margin:0 0 10px;color:var(--accent);font-size:clamp(18px,3.6vw,26px);display:flex;align-items:center;gap:10px}
@@ -62,7 +54,6 @@
     .meta h3{margin:0 0 4px;font:700 1rem/1.25 'Poppins', system-ui}
     .meta p{margin:0;color:var(--muted)}
     .price{margin-top:8px;font-weight:700}
-    
     .thumb{width:76px;height:76px;border-radius:8px;object-fit:cover;border:1px solid var(--border);background:#fff}
     
     dialog{border:none;border-radius:14px;padding:0;background:var(--paper);color:var(--ink);max-width:1100px;width:98%;box-shadow:var(--shadow)}
@@ -94,26 +85,26 @@
 <body>
   <header class="site-header">
     <div class="logo-bar">
-      <img src="https://i.imgur.com/l5pjZQZ.png" alt="Saggio" class="header-logo" />
+      <img src="https://i.imgur.com/8LK230j.png" alt="Saggio" class="header-logo" />
     </div>
     <div class="header-content">
-        <div class="top-nav">
-          <a href="#masculino" class="nav-button">Masculino</a>
-          <a href="#feminino" class="nav-button">Feminino</a>
-          <a href="#infantil" class="nav-button">Infantil</a>
-        </div>
-        <div class="sub-nav-wrapper">
-          <nav class="sub-nav" id="subnav">
-            <a href="#basicas">Básicas</a>
-            <a href="#silkadas">Silkadas</a>
-            <a href="#conforto">Tshirt Conforto</a>
-            <a href="#tactel">Tactel</a>
-            <a href="#moleton">Moletom</a>
-            <a href="#sarja">Bermuda de Sarja</a>
-            <a href="#plus_size">Plus Size</a>
-            <a href="#bone">Boné</a>
-          </nav>
-        </div>
+      <div class="top-nav">
+        <a href="#masculino" class="nav-button">Masculino</a>
+        <a href="#feminino" class="nav-button">Feminino</a>
+        <a href="#infantil" class="nav-button">Infantil</a>
+      </div>
+      <div class="sub-nav-wrapper">
+        <nav class="sub-nav" id="subnav">
+          <a href="#basicas">Básicas</a>
+          <a href="#silkadas">Silkadas</a>
+          <a href="#conforto">Tshirt Conforto</a>
+          <a href="#tactel">Tactel</a>
+          <a href="#moleton">Moletom</a>
+          <a href="#sarja">Bermuda de Sarja</a>
+          <a href="#plus_size">Plus Size</a>
+          <a href="#bone">Boné</a>
+        </nav>
+      </div>
     </div>
   </header>
 
@@ -121,7 +112,6 @@
     <section id="masculino" class="section">
       <h2>Coleção Masculina <span class="underline"></span></h2>
     </section>
-    
     <section id="feminino" class="section">
       <h2>Coleção Feminina <span class="underline"></span></h2>
       <p style="color:var(--muted)">Conteúdo em breve.</p>
@@ -166,6 +156,7 @@
   </dialog>
 
   <script>
+    /* ====== DADOS ====== */
     const ITENS = [
       { id:'tee-basica', grupo:'Básicas', titulo:'T‑Shirt Básica (14 Cores)', desc:'Malha 100% algodão, fio 30.1 penteada, gola canelada e reforço ombro a ombro. Tamanhos: P, M, G, GG.', preco:'R$ 120,00 (combo)', combo:'3 por R$ 120,00', img:'https://i.imgur.com/m5xnpEl.jpeg', imagens:[ 'https://i.imgur.com/m5xnpEl.jpeg','https://i.imgur.com/Xt8vcm9.jpeg','https://i.imgur.com/xd8fdAD.jpeg','https://i.imgur.com/Ud5VlKu.jpeg','https://i.imgur.com/EECbuFI.jpeg'], cores:['#556B2F','#BCB8B1','#ACE1AF','#89CFF0','#000080','#A9A9A9','#000000','#FFDB58','#D8D0C8','#F5F5DC','#FFFFFF','#FFB6C1','#DE3163','#FF0000'], tamanhos:['P','M','G','GG'] },
       { id:'tee-silk', grupo:'Silkadas', titulo:'T‑Shirt Silkada', desc:'Silk prensado com toque leve, malha 100% algodão. Várias cores. Tamanhos: P, M, G, GG.', preco:'R$ 90,00', combo:'2 por R$ 130,00', img:'https://i.imgur.com/yIRfwHy.jpeg', imagens:[ 'https://i.imgur.com/yIRfwHy.jpeg','https://i.imgur.com/4p6EoEP.jpeg','https://i.imgur.com/PqTR1T5.jpeg','https://i.imgur.com/d7sYZSw.jpeg','https://i.imgur.com/zNCMKH7.jpeg','https://i.imgur.com/117XZ4B.jpeg','https://i.imgur.com/qJDieg8.jpeg','https://i.imgur.com/yecDYdx.jpeg'], cores:['#000000','#FFFFFF','#808080'], tamanhos:['P','M','G','GG'] },
@@ -177,7 +168,7 @@
       { id:'plus', grupo:'Plus Size', titulo:'T‑Shirt Plus Size', desc:'30.1 penteada, gola canelada e reforço ombro a ombro. Tamanhos: XL(50), X1(52), X2(54).', preco:'R$ 90,00', combo:'3 por R$ 180,00', img:'https://i.imgur.com/1KBuplb.jpeg', imagens:[ 'https://i.imgur.com/1KBuplb.jpeg','https://i.imgur.com/1nxgGba.png','https://i.imgur.com/dXp0abc.jpeg','https://i.imgur.com/61wnId6.jpeg'], cores:['#000000','#FFFFFF'], tamanhos:['XL(50)','X1(52)','X2(54)'] },
       { id:'bone', grupo:'Boné', titulo:'Boné Trucker Bordado', desc:'Traseira em tela com ajuste de tamanho. Logo bordado. Tamanho único.', preco:'R$ 69,90', combo:null, img:'https://i.imgur.com/m7qD4IY.png', imagens:[ 'https://i.imgur.com/m7qD4IY.png','https://i.imgur.com/JO5mIhd.jpeg','https://i.imgur.com/foM7ai9.jpeg','https://i.imgur.com/GyBmvLJ.jpeg','https://i.imgur.com/SVD2IJG.jpeg','https://i.imgur.com/icBHKQm.jpeg'], cores:['#000000','#FFFFFF'], tamanhos:['Único'] }
     ];
-    
+
     const GROUP_TO_ID = {
       'Básicas':'basicas', 'Silkadas':'silkadas', 'Tshirt Conforto':'conforto', 'Tactel':'tactel', 'Moletom':'moleton',
       'Bermuda de Sarja':'sarja', 'Plus Size':'plus_size', 'Boné':'bone'
@@ -235,7 +226,7 @@
       dlgDesc.textContent=item.desc;
       dlgPrice.textContent=item.preco||'';
       dlgCombo.textContent=item.combo||'';
-      if (!item.combo) { dlgCombo.style.display = 'none'; } else { dlgCombo.style.display = 'inline-block'; }
+      dlgCombo.style.display = item.combo ? 'inline-block' : 'none';
 
       dlgMain.src=item.imagens?.[0]||item.img;
       dlgThumbs.innerHTML='';
@@ -247,14 +238,14 @@
 
       dlgSwatches.innerHTML='';
       if (item.cores && item.cores.length > 0) {
-          dlgSwatches.parentElement.style.display = 'block';
-          item.cores.forEach(c=>{ const s=document.createElement('span'); s.className='sw'; s.style.background=c; dlgSwatches.appendChild(s) });
+        dlgSwatches.parentElement.style.display = 'block';
+        item.cores.forEach(c=>{ const s=document.createElement('span'); s.className='sw'; s.style.background=c; dlgSwatches.appendChild(s) });
       } else { dlgSwatches.parentElement.style.display = 'none'; }
       
       dlgSizes.innerHTML='';
-       if (item.tamanhos && item.tamanhos.length > 0) {
-          dlgSizes.parentElement.style.display = 'block';
-          item.tamanhos.forEach(s=>{ const el=document.createElement('span'); el.className='sz'; el.textContent=s; dlgSizes.appendChild(el) });
+      if (item.tamanhos && item.tamanhos.length > 0) {
+        dlgSizes.parentElement.style.display = 'block';
+        item.tamanhos.forEach(s=>{ const el=document.createElement('span'); el.className='sz'; el.textContent=s; dlgSizes.appendChild(el) });
       } else { dlgSizes.parentElement.style.display = 'none'; }
 
       dlg.showModal();
@@ -264,36 +255,85 @@
       render();
 
       const sections = Array.from(document.querySelectorAll('.section[id]'));
-      const navLinks = Array.from(document.querySelectorAll('.sub-nav a'));
-      const subnav = document.querySelector('.sub-nav');
-      if (sections.length === 0 || navLinks.length === 0 || !subnav) return;
+      const links = Array.from(document.querySelectorAll('.sub-nav a'));
+      const scroller = document.querySelector('.sub-nav-wrapper');
+      const rail = document.querySelector('.sub-nav');
 
-      const pill = document.createElement('div');
-      pill.className = 'pill-slider';
-      subnav.prepend(pill);
+      if (!sections.length || !links.length || !scroller || !rail) return;
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          const id = entry.target.id;
-          const navLink = document.querySelector(`.sub-nav a[href="#${id}"]`);
-          if (!navLink) return;
-          
-          if (entry.isIntersecting) {
-            navLinks.forEach(link => link.classList.remove('active'));
-            navLink.classList.add('active');
-            
-            pill.style.width = `${navLink.offsetWidth}px`;
-            pill.style.transform = `translateX(${navLink.offsetLeft}px)`;
-            
-            // LINHA ADICIONADA PARA CORRIGIR A ROLAGEM
-            navLink.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      // Smooth nos cliques das âncoras
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('.sub-nav a, .top-nav a');
+        if (!a) return;
+        const href = a.getAttribute('href');
+        if (href && href.startsWith('#')){
+          e.preventDefault();
+          const el = document.querySelector(href);
+          if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+          isAutoScrolling = true;
+          setTimeout(()=>{isAutoScrolling=false;}, 300);
+        }
+      });
+
+      const header = document.querySelector('.site-header');
+      const headerOffset = () => (header?.offsetHeight || 180);
+
+      let lastId = null;
+      let ticking = false;
+      let isAutoScrolling = false;
+
+      function pickActiveId(){
+        const off = headerOffset();
+        let bestId=null, bestScore=Infinity;
+        for (const sec of sections){
+          const dist = Math.abs(sec.getBoundingClientRect().top - off);
+          if (dist < bestScore){ bestScore = dist; bestId = sec.id; }
+        }
+        return bestId;
+      }
+
+      function centerNav(el, smooth=true){
+        if (!el) return;
+        const target = el.offsetLeft - (scroller.clientWidth - el.offsetWidth)/2;
+        const max = rail.scrollWidth - scroller.clientWidth;
+        const clamped = Math.max(0, Math.min(target, max));
+        scroller.scrollTo({left: clamped, behavior: smooth ? 'smooth' : 'auto'});
+      }
+
+      function applyActive(id, {center=true, smooth=true} = {}){
+        let activeEl = null;
+        for (const a of links){
+          const ok = a.getAttribute('href') === '#' + id;
+          a.classList.toggle('active', ok);
+          if (ok) activeEl = a;
+        }
+        if (center) centerNav(activeEl, smooth);
+      }
+
+      function onScroll(){
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          ticking = false;
+          const id = pickActiveId();
+          if (id && id !== lastId){
+            lastId = id;
+            applyActive(id, {center:true, smooth: !isAutoScrolling});
           }
         });
-      }, { rootMargin: '-50% 0px -50% 0px' });
+      }
 
-      sections.forEach(section => {
-        if(document.querySelector(`.sub-nav a[href="#${section.id}"]`)) {
-          observer.observe(section);
+      // init
+      const initId = pickActiveId() || links[0].getAttribute('href').slice(1);
+      lastId = initId;
+      applyActive(initId, {center:true, smooth:false});
+
+      window.addEventListener('scroll', onScroll, {passive:true});
+      window.addEventListener('resize', () => {
+        const id = pickActiveId();
+        if (id){
+          lastId = id;
+          applyActive(id, {center:true, smooth:false});
         }
       });
     });
