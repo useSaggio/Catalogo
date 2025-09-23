@@ -34,10 +34,11 @@
     .nav-button:hover{transform:translateY(-1px)}
     .sub-nav-wrapper{border-top:1px solid var(--card);border-bottom:1px solid var(--card);padding:10px 5%;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;background:var(--bg)}
     .sub-nav-wrapper::-webkit-scrollbar{display:none}
-    .sub-nav{display:flex;gap:22px;justify-content:flex-start}
+    .sub-nav{display:flex;gap:22px;justify-content:flex-start;scroll-snap-type:x proximity} .sub-nav a{scroll-snap-align:center}
     @media (min-width:768px){ .sub-nav{justify-content:center} }
     .sub-nav a{color:#7A5C4E;font-weight:600;padding-bottom:3px;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
-    .sub-nav a:hover,.sub-nav a.active{color:var(--ink);border-bottom-color:var(--ink)}
+    .sub-nav a:hover,.sub-nav a.active{color:var(--ink);border-bottom-color:var(--ink);font-weight:700;position:relative}
+.sub-nav a.active::after{content:'';position:absolute;left:0;right:0;bottom:-6px;height:3px;background:var(--ink);border-radius:2px}
     /* ======= LISTA ======= */
     .section{padding:18px 5%}
     .section + .section{border-top:1px solid var(--border)}
@@ -318,7 +319,67 @@
       dlg.showModal();
     }
 
+    
+// ===== Smooth anchor only on click (not every programmatic scroll) =====
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('.sub-nav a, .top-nav a');
+  if (!a) return;
+  const href = a.getAttribute('href');
+  if (href && href.startsWith('#')) {
+    e.preventDefault();
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    // também atualiza o estado ativo manualmente
+    if (a.closest('.sub-nav')) {
+      document.querySelectorAll('.sub-nav a').forEach(x => x.classList.toggle('active', x===a));
+      // scroll discreto do item (sem forcing smooth em todos eventos)
+      a.scrollIntoView({block:'nearest', inline:'center'});
+    }
+  }
+});
+
     // ======= SCROLL SPY =======
+
+// ===== Scroll spy robusto (rAF + cálculo do topo) =====
+(function(){
+  const links = Array.from(document.querySelectorAll('.sub-nav a'));
+  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  let ticking = false;
+
+  function headerOffset(){ return 180; } // igual ao scroll-padding-top
+  function sections(){
+    return Array.from(document.querySelectorAll('.section[id]'));
+  }
+
+  let lastId = null;
+  function updateActive(){
+    const Y = window.scrollY + headerOffset() + 1;
+    let best = null, bestDelta = Infinity;
+    sections().forEach(sec => {
+      const top = sec.offsetTop;
+      const delta = Math.abs(Y - top);
+      if (delta < bestDelta){ best=sec; bestDelta=delta; }
+    });
+    if (!best) return;
+    const id = best.id;
+    if (id === lastId) return; // nada mudou
+    lastId = id;
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    const active = document.querySelector('.sub-nav a.active');
+    if (active) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+  }
+
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { ticking = false; updateActive(); });
+  }
+
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('load', updateActive);
+  setTimeout(updateActive, 300);
+})();
+
     document.addEventListener('DOMContentLoaded', () => {
       render();
 
@@ -326,18 +387,19 @@
       const navLinks = Array.from(document.querySelectorAll('.sub-nav a'));
       if (sections.length === 0 || navLinks.length === 0) return;
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+      let spyTick = false; const observer = new IntersectionObserver((entries) => {
+        if (spyTick) return; spyTick = true; requestAnimationFrame(()=>{ spyTick=false; entries.forEach(entry => {
           if (entry.isIntersecting) {
             const id = entry.target.id;
             navLinks.forEach(link => {
               link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
             });
             const active = document.querySelector('.sub-nav a.active');
-            if (active) active.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+            if (active) active.scrollIntoView({inline:'center',block:'nearest'});
           }
         });
-      }, { rootMargin: '-55% 0px -45% 0px', threshold: [0, 1] });
+      });
+    }, { rootMargin: '-55% 0px -45% 0px', threshold: 0.25 });
 
       sections.forEach(section => {
         if (document.querySelector(`.sub-nav a[href="#${section.id}"]`)) {
