@@ -41,7 +41,6 @@
     .sub-nav a{color:#7A5C4E;font-weight:600;white-space:nowrap;transition:color .2s; position: relative; z-index: 1; padding: 6px 10px;}
     .sub-nav a.active{color:var(--ink); font-weight: 700;}
 
-    /* EFEITO "PILL SLIDER" */
     .pill-slider {
         position: absolute;
         top: 3px;
@@ -183,7 +182,7 @@
       'Básicas':'basicas', 'Silkadas':'silkadas', 'Tshirt Conforto':'conforto', 'Tactel':'tactel', 'Moletom':'moleton',
       'Bermuda de Sarja':'sarja', 'Plus Size':'plus_size', 'Boné':'bone'
     };
-
+    
     const $content = document.getElementById('content');
     const dlg = document.getElementById('dlg');
     const dlgTitle = document.getElementById('dlgTitle');
@@ -260,8 +259,7 @@
 
       dlg.showModal();
     }
-
-    // SCROLL SPY + PILL SLIDER
+    
     document.addEventListener('DOMContentLoaded', () => {
       render();
 
@@ -276,16 +274,19 @@
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          const id = entry.target.id;
-          const navLink = document.querySelector(`.sub-nav a[href="#${id}"]`);
-          if (!navLink) return;
-          
           if (entry.isIntersecting) {
+            const id = entry.target.id;
+            const navLink = document.querySelector(`.sub-nav a[href="#${id}"]`);
+            if (!navLink) return;
+            
             navLinks.forEach(link => link.classList.remove('active'));
             navLink.classList.add('active');
             
             pill.style.width = `${navLink.offsetWidth}px`;
             pill.style.transform = `translateX(${navLink.offsetLeft}px)`;
+            
+            // <<--- ESTA É A LINHA QUE CORRIGE A ROLAGEM DO MENU
+            navLink.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
           }
         });
       }, { rootMargin: '-50% 0px -50% 0px' });
@@ -299,4 +300,3 @@
   </script>
 </body>
 </html>
-o que acha desse codigo
