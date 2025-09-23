@@ -77,6 +77,10 @@
     .sw{width:24px;height:24px;border-radius:999px;border:2px solid #bda78f}
     .sizes{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
     .sz{border:1px solid var(--border);padding:6px 10px;border-radius:8px;background:#fff}
+
+    .actions{display:flex;gap:10px;margin-top:10px}
+    .btn{cursor:pointer;border:1px solid var(--border);border-radius:12px;padding:10px 14px;font-weight:800;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.06)}
+    .btn:active{transform:translateY(1px)}
   </style>
 </head>
 <body>
@@ -142,6 +146,9 @@
         <div>
           <strong>Tamanhos</strong>
           <div id="dlgSizes" class="sizes"></div>
+        </div>
+        <div class="actions">
+          <button class="btn" type="button" onclick="dlg.close()">Fechar</button>
         </div>
       </div>
     </div>
