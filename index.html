@@ -3,100 +3,156 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>Saggio — Catálogo (Mobile • Dark)</title>
+  <title>Saggio — Catálogo Digital</title>
+
+  <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
+    /* ===================== PALETA E BASE ===================== */
     :root{
-      --bg:#0f1012;
-      --paper:#14161a;
-      --card:#1b1e23;
-      --ink:#f3f3f3;
-      --muted:#b9bdc2;
-      --border:#262a31;
-      --accent:#e30613;
-      --shadow:0 8px 24px rgba(0,0,0,.35);
+      --bg:#1A1E22;        /* fundo geral */
+      --paper:#2A2E33;     /* cards */
+      --card:#24282D;      /* painéis/modal */
+      --ink:#F3F3F3;       /* textos principais */
+      --muted:#C8CCD1;     /* textos secundários */
+      --border:#3A3F45;    /* bordas */
+      --accent:#E30613;    /* vermelho saggio */
+      --shadow:0 8px 20px rgba(0,0,0,.25);
     }
+
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth; scroll-padding-top: 164px;}
-    body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 'Poppins', system-ui}
+    html{scroll-behavior:smooth; scroll-padding-top: 176px;}
+    body{
+      margin:0;color:var(--ink);font:15px/1.55 'Poppins',system-ui,Arial;
+      background:var(--bg); min-height:100dvh; overflow-x:hidden;
+    }
+    /* Degradê do fundo */
+    body::before{
+      content:""; position:fixed; inset:0; z-index:-1;
+      background:
+        radial-gradient(1100px 800px at -10% -20%, rgba(255,255,255,.06) 0%, transparent 60%),
+        linear-gradient(135deg, #22262B 0%, #1A1E22 35%, #14171B 60%, #0F1115 100%);
+    }
+
     img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
     .container{max-width:760px;margin:0 auto}
     main{padding:12px 12px 80px}
 
-    /* Header */
-    header.site-header{position:sticky;top:0;z-index:1000;background:var(--bg);box-shadow:0 2px 10px rgba(0,0,0,.35)}
-    .logo-bar{background:#000;display:flex;justify-content:center;align-items:center;padding:12px 0;border-bottom:1px solid #121212}
-    .header-logo{height:46px;width:auto;filter: drop-shadow(0 4px 16px rgba(227,6,19,.35));}
-    .top-nav{display:flex;justify-content:center;gap:10px;margin:8px 12px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
+    /* ===================== HEADER (SÓLIDO) ===================== */
+    header.site-header{
+      position:sticky; top:0; z-index:1000;
+      background: linear-gradient(135deg,#22262B 0%,#1A1E22 35%,#14171B 60%,#0F1115 100%);
+      box-shadow:0 2px 12px rgba(0,0,0,.35)
+    }
+    .logo-bar{
+      background:#000; display:flex; justify-content:center; align-items:center;
+      padding:12px 0; border-bottom:1px solid #111
+    }
+    .header-logo{height:46px;width:auto;filter: drop-shadow(0 2px 10px rgba(0,0,0,.35));}
+
+    /* Botões Masculino/Feminino/Infantil */
+    .top-nav{
+      display:flex;justify-content:center;gap:10px;margin:0;overflow-x:auto;
+      padding:12px; -ms-overflow-style:none; scrollbar-width:none;
+      background: linear-gradient(135deg,#22262B 0%,#1A1E22 35%,#14171B 60%,#0F1115 100%);
+      border-bottom:1px solid #2A2E33;
+    }
     .top-nav::-webkit-scrollbar{display:none}
-    .nav-button{flex:0 0 auto;background:var(--accent);color:#fff;padding:8px 16px;border-radius:999px;font-weight:700;transition:.15s transform ease}
+    .nav-button{
+      flex:0 0 auto;background:#000;color:#fff;padding:8px 18px;border-radius:999px;
+      font-weight:700; box-shadow:0 4px 10px rgba(0,0,0,.3); transition:.15s transform ease
+    }
     .nav-button:active{transform:translateY(1px)}
 
-    .sub-nav-wrapper{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:8px 12px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;background:var(--bg)}
+    /* Sub navegação (categorias) */
+    .sub-nav-wrapper{
+      border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      padding:8px 12px; overflow-x:auto; -ms-overflow-style:none; scrollbar-width:none;
+      background: linear-gradient(135deg,#22262B 0%,#1A1E22 35%,#14171B 60%,#0F1115 100%);
+    }
     .sub-nav-wrapper::-webkit-scrollbar{display:none}
     .sub-nav{display:flex;gap:18px;justify-content:flex-start}
-    .sub-nav a{color:var(--muted);font-weight:600;white-space:nowrap;padding:6px 8px;border-radius:8px;transition:.2s color}
-    .sub-nav a.active{color:var(--accent);font-weight:700}
+    .sub-nav a{color:#CDD2D6; font-weight:600; white-space:nowrap; padding:6px 8px; border-radius:8px; transition:.2s color}
+    .sub-nav a.active{color:#fff; font-weight:700}
 
-    /* Seções e cards (mobile first) */
+    /* ===================== SEÇÕES & CARDS ===================== */
     .section{padding:16px 0}
-    .section + .section{border-top:1px solid var(--border)}
-    .section h2{margin:0 0 10px;color:#fff;font-size:1.18rem;display:flex;align-items:center;gap:10px;padding:0 4px;letter-spacing:.2px}
-    .underline{flex:1;height:2px;background:linear-gradient(90deg,var(--accent),transparent);opacity:.5}
+    .section + .section{border-top:1px solid rgba(255,255,255,.08)}
+    .section h2{margin:0 0 10px;color:#FFF;font-size:1.12rem;display:flex;align-items:center;gap:10px;padding:0 4px;letter-spacing:.2px}
+    .underline{
+      flex: 1; height: 2px; border-radius: 2px;
+      background: linear-gradient(
+        90deg,
+        #E30613 0%,
+        rgba(227, 6, 19, 0.70) 40%,
+        rgba(227, 6, 19, 0.35) 68%,
+        rgba(227, 6, 19, 0.00) 100%
+      );
+      box-shadow: 0 0 6px rgba(227, 6, 19, 0.35);
+    }
+
     .list{display:flex;flex-direction:column;gap:12px}
-    .item{background:var(--paper);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:12px;cursor:pointer;transition:transform .15s ease}
+    .item{
+      background:var(--paper); border:1px solid var(--border); border-radius:14px;
+      box-shadow:var(--shadow); padding:12px; cursor:pointer; transition:.15s transform ease
+    }
     .item:active{transform:scale(.996)}
-    .row{display:grid;grid-template-columns:1fr 92px;gap:12px;align-items:center}
-    .meta h3{margin:0 0 6px;font:700 1rem/1.25 'Poppins'}
-    .meta p{margin:0;color:var(--muted);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+    .row{display:grid;grid-template-columns:1fr 92px; gap:12px; align-items:center}
+    .meta h3{margin:0 0 6px; font:700 1rem/1.25 'Poppins'}
+    .meta p{
+      margin:0;color:var(--muted);
+      overflow:hidden; text-overflow:ellipsis; display:-webkit-box;
+      -webkit-line-clamp:2; -webkit-box-orient:vertical;
+    }
     .price{margin-top:8px;font-weight:700;color:#fff}
-    .thumb{width:92px;height:92px;border-radius:12px;object-fit:cover;border:1px solid var(--border);background:#0c0d0f}
+    .badge{font-size:.8rem;background:#3d4249;border:1px solid var(--border);padding:3px 8px;border-radius:999px;color:#fff}
+    .thumb{width:92px;height:92px;border-radius:12px;object-fit:cover;border:1px solid var(--border);background:#fff}
 
-    .badge{font-size:.8rem;background:#20242b;border:1px solid var(--border);padding:4px 8px;border-radius:999px;color:#e9edf2}
-
-    /* Modal */
+    /* ===================== MODAL ===================== */
     dialog{border:none;border-radius:18px;padding:0;background:var(--paper);color:var(--ink);max-width:920px;width:96%;box-shadow:var(--shadow)}
-    dialog::backdrop{background:rgb(0 0 0/.6)}
+    dialog::backdrop{background:rgb(0 0 0/.35)}
     .modal-head{display:flex;align-items:center;justify-content:space-between;padding:12px;border-bottom:1px solid var(--border)}
     .modal-title{margin:0;font:700 1.05rem/1.25 'Poppins'}
-    .close-x{background:#0f1115;border:1px solid var(--border);color:#fff;border-radius:999px;padding:6px 10px;cursor:pointer}
+    .close-x{background:#fff;border:1px solid var(--border);color:#000;border-radius:999px;padding:6px 10px;cursor:pointer}
 
     .modal-body{display:flex;flex-direction:column;gap:12px;padding:12px}
     .mediaPanel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px;max-height:70vh;overflow:auto}
     .main-wrap{display:grid;place-items:center;margin-bottom:8px}
-    .main-img{width:100%;max-height:56vh;object-fit:contain;border-radius:12px;background:#0c0d0f}
+    .main-img{width:100%;max-height:56vh;object-fit:contain;border-radius:12px;background:#fff}
     .thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
-    .timg{width:100%;height:84px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#0c0d0f}
+    .timg{width:100%;height:84px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;background:#fff}
     .timg.active{border-color:var(--accent)}
 
     .info{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;max-height:70vh;overflow:auto}
-    .desc{color:var(--muted);margin:6px 0}
+    .desc{color:#E1E4E8;margin:6px 0}
     .price-line{display:flex;align-items:center;gap:8px;margin:8px 0;flex-wrap:wrap}
-
     .swatches{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
-    .sw{width:24px;height:24px;border-radius:999px;border:2px solid #434a55;background:#fff}
+    .sw{width:24px;height:24px;border-radius:999px;border:2px solid #7a7a7a;background:#fff}
     .sizes{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
-    .sz{border:1px solid var(--border);padding:8px 12px;border-radius:10px;background:#0f1115;color:#fff}
+    .sz{border:1px solid var(--border);padding:8px 12px;border-radius:10px;background:#fff;color:#000}
 
     .actions{display:flex;gap:10px;margin-top:10px}
-    .btn{cursor:pointer;border:1px solid var(--border);border-radius:12px;padding:12px 16px;font-weight:800;background:#0f1115;color:#fff}
-    .btn.primary{background:var(--accent);border-color:transparent}
+    .btn{cursor:pointer;border:1px solid var(--border);border-radius:12px;padding:12px 16px;font-weight:800;background:#fff;color:#000}
     .btn:active{transform:translateY(1px)}
   </style>
 </head>
 <body>
+  <!-- ===================== HEADER ===================== -->
   <header class="site-header">
     <div class="logo-bar">
       <img src="https://i.imgur.com/8LK230j.png" alt="Saggio" class="header-logo" />
     </div>
+
     <div class="top-nav">
       <a href="#masculino" class="nav-button">Masculino</a>
       <a href="#feminino" class="nav-button">Feminino</a>
       <a href="#infantil" class="nav-button">Infantil</a>
     </div>
+
     <div class="sub-nav-wrapper">
       <nav class="sub-nav" id="subnav">
         <a href="#basicas">Básicas</a>
@@ -107,28 +163,32 @@
         <a href="#sarja">Bermuda de Sarja</a>
         <a href="#plus_size">Plus Size</a>
         <a href="#bone">Boné</a>
-        <!-- (Intencionalmente não há link para #basicas_fem) -->
+        <a href="#basicas_fem">Básicas Femininas</a>
       </nav>
     </div>
   </header>
 
+  <!-- ===================== CONTEÚDO ===================== -->
   <main class="container" id="content">
+    <!-- Coleção Masculina (as seções de grupos serão injetadas antes da Feminina) -->
     <section id="masculino" class="section">
       <h2>Coleção Masculina <span class="underline"></span></h2>
     </section>
 
-    <!-- Coleção Feminina com a seção interna "Básicas Femininas" -->
+    <!-- Coleção Feminina -->
     <section id="feminino" class="section">
       <h2>Coleção Feminina <span class="underline"></span></h2>
       <div id="fem-sections"></div>
     </section>
 
+    <!-- Coleção Infantil -->
     <section id="infantil" class="section">
       <h2>Coleção Infantil <span class="underline"></span></h2>
+      <p style="color:var(--muted)">Conteúdo em breve.</p>
     </section>
   </main>
 
-  <!-- Modal -->
+  <!-- ===================== MODAL ===================== -->
   <dialog id="dlg">
     <div class="modal-head">
       <h3 id="dlgTitle" class="modal-title"></h3>
@@ -162,54 +222,172 @@
     </div>
   </dialog>
 
+  <!-- ===================== SCRIPT ===================== -->
   <script>
-    /* ===================== DADOS COMPLETOS ===================== */
+    /* ===== LISTA COMPLETA DE ITENS =====
+       Masculino: Básicas, Silkadas, Tshirt Conforto, Tactel, Tactel Premium c/ Elastano, Moletom, Sarja (Elástico/Tradicional), Plus Size, Boné
+       Feminino: Básicas Femininas
+    */
     const ITENS = [
-      /* Masculino */
-      { id:'tee-basica', grupo:'Básicas', colecao:'Masculino', titulo:'T-Shirt Básica (14 Cores)', desc:'Malha 100% algodão, fio 30.1 penteada, gola canelada e reforço ombro a ombro. Tamanhos: P, M, G, GG.', preco:'R$ 120,00 (combo)', combo:'3 por R$ 120,00', img:'https://i.imgur.com/m5xnpEl.jpeg',
-        imagens:['https://i.imgur.com/m5xnpEl.jpeg','https://i.imgur.com/Xt8vcm9.jpeg','https://i.imgur.com/xd8fdAD.jpeg','https://i.imgur.com/Ud5VlKu.jpeg','https://i.imgur.com/EECbuFI.jpeg'],
+      /* ---------- Masculino ---------- */
+      {
+        id:'tee-basica',
+        grupo:'Básicas', colecao:'Masculino',
+        titulo:'T-Shirt Básica (14 Cores)',
+        desc:'Malha 100% algodão, fio 30.1 penteada, gola canelada e reforço ombro a ombro.',
+        preco:'3 por R$ 120,00', combo:null,
+        img:'https://i.imgur.com/m5xnpEl.jpeg',
+        imagens:[
+          'https://i.imgur.com/m5xnpEl.jpeg','https://i.imgur.com/Xt8vcm9.jpeg','https://i.imgur.com/xd8fdAD.jpeg',
+          'https://i.imgur.com/Ud5VlKu.jpeg','https://i.imgur.com/EECbuFI.jpeg'
+        ],
         cores:['#556B2F','#BCB8B1','#ACE1AF','#89CFF0','#000080','#A9A9A9','#000000','#FFDB58','#D8D0C8','#F5F5DC','#FFFFFF','#FFB6C1','#DE3163','#FF0000'],
-        tamanhos:['P','M','G','GG'] },
+        tamanhos:['P','M','G','GG']
+      },
+      {
+        id:'tee-silk',
+        grupo:'Silkadas', colecao:'Masculino',
+        titulo:'T-Shirt Silkada',
+        desc:'Silk prensado com toque leve, malha 100% algodão. Consulte as estampas disponíveis.',
+        preco:'R$ 90,00', combo:'2 por R$ 130,00',
+        img:'https://i.imgur.com/yIRfwHy.jpeg',
+        imagens:[
+          'https://i.imgur.com/yIRfwHy.jpeg','https://i.imgur.com/4p6EoEP.jpeg','https://i.imgur.com/PqTR1T5.jpeg',
+          'https://i.imgur.com/d7sYZSw.jpeg','https://i.imgur.com/zNCMKH7.jpeg','https://i.imgur.com/117XZ4B.jpeg',
+          'https://i.imgur.com/qJDieg8.jpeg','https://i.imgur.com/yecDYdx.jpeg'
+        ],
+        cores:['#000000','#FFFFFF','#808080'],
+        tamanhos:['P','M','G','GG']
+      },
+      {
+        id:'cotton',
+        grupo:'Tshirt Conforto', colecao:'Masculino',
+        titulo:'T-Shirt Conforto (Cotton)',
+        desc:'96% algodão | 4% elastano. Toque macio, amassa menos e pigmentação firme.',
+        preco:'R$ 90,00', combo:'2 por R$ 150,00',
+        img:'https://i.imgur.com/Hk4wAbO.jpeg',
+        imagens:[
+          'https://i.imgur.com/Hk4wAbO.jpeg','https://i.imgur.com/Wy7xhOE.jpeg','https://i.imgur.com/XpLpMvP.jpeg',
+          'https://i.imgur.com/Tvfd3lt.jpeg','https://i.imgur.com/gmCXjJU.jpeg','https://i.imgur.com/Bs21P1C.jpeg',
+          'https://i.imgur.com/gpNvmPW.jpeg','https://i.imgur.com/Svwbu08.jpeg','https://i.imgur.com/kc5G16Z.jpeg','https://i.imgur.com/LWs7zqt.jpeg'
+        ],
+        cores:['#FFFFFF','#000000','#A9A9A9'],
+        tamanhos:['P','M','G','GG']
+      },
+      {
+        id:'tactel',
+        grupo:'Tactel', colecao:'Masculino',
+        titulo:'Short de Tactel',
+        desc:'Forro antialérgico, cordão regulador, costura tripla. Secagem rápida.',
+        preco:'R$ 85,00', combo:'2 por R$ 150,00',
+        img:'https://i.imgur.com/ehQjcEw.jpeg',
+        imagens:[
+          'https://i.imgur.com/ehQjcEw.jpeg','https://i.imgur.com/9nRtnL2.jpeg','https://i.imgur.com/WsVp1Fd.jpeg',
+          'https://i.imgur.com/1mqizXj.jpeg','https://i.imgur.com/yB1cJi7.jpeg','https://i.imgur.com/TtXbRfm.png',
+          'https://i.imgur.com/6skv07Q.jpeg'
+        ],
+        cores:['#FFFFFF','#D4AF37','#C2B280','#800000','#B2F5E9','#7FFFD4','#006400','#4682B4','#000080'],
+        tamanhos:['P','M','G','XL']
+      },
+      {
+        id:'tactel-premium',
+        grupo:'Tactel', colecao:'Masculino',
+        titulo:'Tactel Prêmio com Elastano',
+        desc:'Tecido premium com elastano para conforto e flexibilidade. Caimento top.',
+        preco:'R$ 99,90', combo:null,
+        img:'https://i.imgur.com/5FFC7Lc.jpeg',
+        imagens:[
+          'https://i.imgur.com/5FFC7Lc.jpeg','https://i.imgur.com/6XgrZr3.jpeg','https://i.imgur.com/ARRZtfP.jpeg'
+        ],
+        cores:['#4682B4','#000080','#F5F5DC','#556B2F','#808080','#2F4F4F'],
+        tamanhos:['P','M','G','GG']
+      },
+      {
+        id:'moletom',
+        grupo:'Moletom', colecao:'Masculino',
+        titulo:'Short de Moletom',
+        desc:'Cós elástico com cordão, bolsos laterais e bolso cargo. Etiqueta em couro (coruja).',
+        preco:'Consultar', combo:null,
+        img:'https://i.imgur.com/OTRN9YH.jpeg', /* capa corrigida */
+        imagens:[
+          'https://i.imgur.com/OTRN9YH.jpeg','https://i.imgur.com/199Fuhv.jpeg','https://i.imgur.com/8Hc3DFP.jpeg',
+          'https://i.imgur.com/cF61r0e.jpeg','https://i.imgur.com/295V8Si.jpeg'
+        ],
+        cores:['#556B2F','#F5F5DC','#000000','#FFDB58','#000080','#800000'],
+        tamanhos:['P','M','G']
+      },
+      {
+        id:'sarja-elast',
+        grupo:'Bermuda de Sarja', colecao:'Masculino',
+        titulo:'Bermuda de Sarja — Cós Elástico',
+        desc:'Corte moderno e tecido confortável, com a praticidade do cós de elástico.',
+        preco:'Consultar', combo:null,
+        img:'https://i.imgur.com/UJR5soC.jpeg',
+        imagens:[
+          'https://i.imgur.com/UJR5soC.jpeg','https://i.imgur.com/YUslcrP.jpeg','https://i.imgur.com/gTLEG9u.jpeg',
+          'https://i.imgur.com/rSjul7k.jpeg','https://i.imgur.com/q7Fpdnc.jpeg','https://i.imgur.com/eKo1WlT.jpeg'
+        ],
+        cores:['#A9A9A9','#000000','#F5F5DC','#556B2F','#4682B4','#800000'],
+        tamanhos:['38','40','42','44']
+      },
+      {
+        id:'sarja-trad',
+        grupo:'Bermuda de Sarja', colecao:'Masculino',
+        titulo:'Bermuda de Sarja — Cós Tradicional',
+        desc:'Estilo clássico do cós tradicional, caimento confortável.',
+        preco:'Consultar', combo:null,
+        img:'https://i.imgur.com/7e3yAul.jpeg',
+        imagens:[
+          'https://i.imgur.com/7e3yAul.jpeg','https://i.imgur.com/FRzcP9G.jpeg','https://i.imgur.com/02PUtFO.jpeg',
+          'https://i.imgur.com/S05gJZv.jpeg','https://i.imgur.com/PR3WCkR.jpeg','https://i.imgur.com/OPxuKsA.jpeg',
+          'https://i.imgur.com/YMsKhZr.jpeg'
+        ],
+        cores:['#A9A9A9','#000000','#F5F5DC','#556B2F','#4682B4','#800000'],
+        tamanhos:['38','40','42','44']
+      },
+      {
+        id:'plus',
+        grupo:'Plus Size', colecao:'Masculino',
+        titulo:'T-Shirt Plus Size',
+        desc:'30.1 penteada, gola canelada e reforço ombro a ombro.',
+        preco:'R$ 90,00', combo:'3 por R$ 180,00',
+        img:'https://i.imgur.com/1KBuplb.jpeg',
+        imagens:[
+          'https://i.imgur.com/1KBuplb.jpeg','https://i.imgur.com/1nxgGba.png','https://i.imgur.com/dXp0abc.jpeg','https://i.imgur.com/61wnId6.jpeg'
+        ],
+        cores:['#000000','#FFFFFF'],
+        tamanhos:['XL(50)','X1(52)','X2(54)']
+      },
+      {
+        id:'bone',
+        grupo:'Boné', colecao:'Masculino',
+        titulo:'Boné Trucker Bordado',
+        desc:'Traseira em tela com ajuste. Logo bordado. Tamanho único.',
+        preco:'R$ 69,90', combo:null,
+        img:'https://i.imgur.com/m7qD4IY.png',
+        imagens:[
+          'https://i.imgur.com/m7qD4IY.png','https://i.imgur.com/JO5mIhd.jpeg','https://i.imgur.com/foM7ai9.jpeg',
+          'https://i.imgur.com/GyBmvLJ.jpeg','https://i.imgur.com/SVD2IJG.jpeg','https://i.imgur.com/icBHKQm.jpeg'
+        ],
+        cores:['#000000','#FFFFFF'],
+        tamanhos:['Único']
+      },
 
-      { id:'tee-silk', grupo:'Silkadas', colecao:'Masculino', titulo:'T-Shirt Silkada', desc:'Silk prensado com toque leve, malha 100% algodão. Várias cores. Tamanhos: P, M, G, GG.', preco:'R$ 90,00', combo:'2 por R$ 130,00', img:'https://i.imgur.com/yIRfwHy.jpeg',
-        imagens:['https://i.imgur.com/yIRfwHy.jpeg','https://i.imgur.com/4p6EoEP.jpeg','https://i.imgur.com/PqTR1T5.jpeg','https://i.imgur.com/d7sYZSw.jpeg','https://i.imgur.com/zNCMKH7.jpeg','https://i.imgur.com/117XZ4B.jpeg','https://i.imgur.com/qJDieg8.jpeg','https://i.imgur.com/yecDYdx.jpeg'],
-        cores:['#000000','#FFFFFF','#808080'], tamanhos:['P','M','G','GG'] },
-
-      { id:'cotton', grupo:'Tshirt Conforto', colecao:'Masculino', titulo:'T-Shirt Conforto (Cotton)', desc:'96% algodão | 4% elastano. Toque macio, amassa menos e pigmentação firme.', preco:'R$ 90,00', combo:'2 por R$ 150,00', img:'https://i.imgur.com/Hk4wAbO.jpeg',
-        imagens:['https://i.imgur.com/Hk4wAbO.jpeg','https://i.imgur.com/Wy7xhOE.jpeg','https://i.imgur.com/XpLpMvP.jpeg','https://i.imgur.com/Tvfd3lt.jpeg','https://i.imgur.com/gmCXjJU.jpeg','https://i.imgur.com/Bs21P1C.jpeg','https://i.imgur.com/gpNvmPW.jpeg','https://i.imgur.com/Svwbu08.jpeg','https://i.imgur.com/kc5G16Z.jpeg','https://i.imgur.com/LWs7zqt.jpeg'],
-        cores:['#FFFFFF','#000000','#A9A9A9'], tamanhos:['P','M','G','GG'] },
-
-      { id:'tactel', grupo:'Tactel', colecao:'Masculino', titulo:'Short de Tactel', desc:'Forro antialérgico, cordão regulador, costura tripla. Tamanhos: P, M, G, XL.', preco:'R$ 85,00', combo:'2 por R$ 150,00', img:'https://i.imgur.com/ehQjcEw.jpeg',
-        imagens:['https://i.imgur.com/ehQjcEw.jpeg','https://i.imgur.com/9nRtnL2.jpeg','https://i.imgur.com/WsVp1Fd.jpeg','https://i.imgur.com/1mqizXj.jpeg','https://i.imgur.com/yB1cJi7.jpeg','https://i.imgur.com/TtXbRfm.png','https://i.imgur.com/6skv07Q.jpeg'],
-        cores:['#FFFFFF','#D4AF37','#C2B280','#800000','#B2F5E9','#7FFFD4','#006400','#4682B4','#000080'], tamanhos:['P','M','G','XL'] },
-
-      { id:'moletom', grupo:'Moletom', colecao:'Masculino', titulo:'Short de Moletom', desc:'Cós elástico com cordão, bolsos laterais + cargo e etiqueta em couro (coruja).', preco:'Consultar', combo:null, img:'https://i.imgur.com/OTRN9YH.jpeg',
-        imagens:['https://i.imgur.com/OTRN9YH.jpeg','https://i.imgur.com/199Fuhv.jpeg','https://i.imgur.com/8Hc3DFP.jpeg','https://i.imgur.com/cF61r0e.jpeg','https://i.imgur.com/295V8Si.jpeg'],
-        cores:['#556B2F','#F5F5DC','#000000','#FFDB58','#000080','#800000'], tamanhos:['P','M','G'] },
-
-      { id:'sarja-elast', grupo:'Bermuda de Sarja', colecao:'Masculino', titulo:'Bermuda de Sarja — Cós Elástico', desc:'Corte moderno e tecido confortável, com a praticidade do cós de elástico. Tamanhos: 38, 40, 42, 44.', preco:'Consultar', combo:null, img:'https://i.imgur.com/UJR5soC.jpeg',
-        imagens:['https://i.imgur.com/UJR5soC.jpeg','https://i.imgur.com/YUslcrP.jpeg','https://i.imgur.com/gTLEG9u.jpeg','https://i.imgur.com/rSjul7k.jpeg','https://i.imgur.com/q7Fpdnc.jpeg','https://i.imgur.com/eKo1WlT.jpeg'],
-        cores:['#A9A9A9','#000000','#F5F5DC','#556B2F','#4682B4','#800000'], tamanhos:['38','40','42','44'] },
-
-      { id:'sarja-trad', grupo:'Bermuda de Sarja', colecao:'Masculino', titulo:'Bermuda de Sarja — Cós Tradicional', desc:'Corte moderno e tecido confortável, com o estilo clássico do cós tradicional. Tamanhos: 38, 40, 42, 44.', preco:'Consultar', combo:null, img:'https://i.imgur.com/7e3yAul.jpeg',
-        imagens:['https://i.imgur.com/7e3yAul.jpeg','https://i.imgur.com/FRzcP9G.jpeg','https://i.imgur.com/02PUtFO.jpeg','https://i.imgur.com/S05gJZv.jpeg','https://i.imgur.com/PR3WCkR.jpeg','https://i.imgur.com/OPxuKsA.jpeg','https://i.imgur.com/YMsKhZr.jpeg'],
-        cores:['#A9A9A9','#000000','#F5F5DC','#556B2F','#4682B4','#800000'], tamanhos:['38','40','42','44'] },
-
-      { id:'plus', grupo:'Plus Size', colecao:'Masculino', titulo:'T-Shirt Plus Size', desc:'30.1 penteada, gola canelada e reforço ombro a ombro. Tamanhos: XL(50), X1(52), X2(54).', preco:'R$ 90,00', combo:'3 por R$ 180,00', img:'https://i.imgur.com/1KBuplb.jpeg',
-        imagens:['https://i.imgur.com/1KBuplb.jpeg','https://i.imgur.com/1nxgGba.png','https://i.imgur.com/dXp0abc.jpeg','https://i.imgur.com/61wnId6.jpeg'],
-        cores:['#000000','#FFFFFF'], tamanhos:['XL(50)','X1(52)','X2(54)'] },
-
-      { id:'bone', grupo:'Boné', colecao:'Masculino', titulo:'Boné Trucker Bordado', desc:'Traseira em tela com ajuste de tamanho. Logo bordado. Tamanho único.', preco:'R$ 69,90', combo:null, img:'https://i.imgur.com/m7qD4IY.png',
-        imagens:['https://i.imgur.com/m7qD4IY.png','https://i.imgur.com/JO5mIhd.jpeg','https://i.imgur.com/foM7ai9.jpeg','https://i.imgur.com/GyBmvLJ.jpeg','https://i.imgur.com/SVD2IJG.jpeg','https://i.imgur.com/icBHKQm.jpeg'],
-        cores:['#000000','#FFFFFF'], tamanhos:['Único'] },
-
-      /* Feminino — Básicas Femininas (dentro da Coleção Feminina) */
-      { id:'fem-basica', grupo:'Básicas Femininas', colecao:'Feminino', titulo:'T-Shirt Básica Feminina', desc:'T-Shirts Básicas Femininas 3 por 120,00 !!! 100% algodão fio 30.1 penteada, gola canelada não esgaça na lavagem.', preco:'BRL 60,00', combo:'3 por R$ 120,00', img:'https://i.imgur.com/qIRmiWM.jpeg',
-        imagens:['https://i.imgur.com/qIRmiWM.jpeg','https://i.imgur.com/ONFpaaE.jpeg'],
-        tamanhos:['P','M','G'] }
+      /* ---------- Feminino ---------- */
+      {
+        id:'fem-basica',
+        grupo:'Básicas Femininas', colecao:'Feminino',
+        titulo:'T-Shirt Básica Feminina',
+        desc:'T-Shirts Básicas Femininas 3 por 120,00 !!! 100% algodão fio 30.1 penteada, gola canelada não esgaça na lavagem.',
+        preco:'BRL 60,00', combo:'3 por R$ 120,00',
+        img:'https://i.imgur.com/qIRmiWM.jpeg',
+        imagens:[ 'https://i.imgur.com/qIRmiWM.jpeg', 'https://i.imgur.com/ONFpaaE.jpeg' ],
+        cores:['#000000','#FFFFFF'],
+        tamanhos:['P','M','G']
+      }
     ];
 
-    /* Subnav (masculino) — mapa grupo -> id */
+    /* Ordem e ids das âncoras (masculino) */
     const GROUP_TO_ID = {
       'Básicas':'basicas',
       'Silkadas':'silkadas',
@@ -219,58 +397,47 @@
       'Bermuda de Sarja':'sarja',
       'Plus Size':'plus_size',
       'Boné':'bone'
-      // (Sem 'Básicas Femininas' aqui de propósito)
     };
 
-    /* ========= Renderização, modal e scroll-spy ========== */
+    /* ===================== RENDER DOS CARDS ===================== */
     const $content = document.getElementById('content');
-    const dlg = document.getElementById('dlg');
-    const dlgTitle = document.getElementById('dlgTitle');
-    const dlgMain  = document.getElementById('dlgMain');
-    const dlgThumbs= document.getElementById('dlgThumbs');
-    const dlgDesc  = document.getElementById('dlgDesc');
-    const dlgPrice = document.getElementById('dlgPrice');
-    const dlgCombo = document.getElementById('dlgCombo');
-    const dlgSwatches = document.getElementById('dlgSwatches');
-    const dlgSizes = document.getElementById('dlgSizes');
+
+    const cardHTML = (it) => `
+      <article class="item" data-id="${it.id}">
+        <div class="row">
+          <div class="meta">
+            <h3>${it.titulo}</h3>
+            <p>${it.desc}</p>
+            <div class="price">
+              ${it.preco ? it.preco : ''}
+              ${it.combo ? `<span class="badge">${it.combo}</span>` : ''}
+            </div>
+          </div>
+          <img class="thumb" src="${it.img}" alt="${it.titulo}">
+        </div>
+      </article>`;
 
     const groupBy = (arr,key) => arr.reduce((a,c)=>((a[c[key]]??=[]).push(c),a),{});
 
-    function cardHTML(it){
-      return `
-        <article class="item" data-id="${it.id}">
-          <div class="row">
-            <div class="meta">
-              <h3>${it.titulo}</h3>
-              <p>${it.desc}</p>
-              ${it.preco?`<div class="price">${it.preco} ${it.combo?`<span class='badge'>${it.combo}</span>`:''}</div>`:''}
-            </div>
-            <img class="thumb" src="${it.img}" alt="${it.titulo}">
-          </div>
-        </article>`;
-    }
-
     function render(){
+      /* Seções masculinas por grupo (na ordem do subnav) */
       const groups = groupBy(ITENS.filter(i=>i.colecao==='Masculino'),'grupo');
-      const beforeNode = document.getElementById('feminino'); // inserir as seções masculinas antes da feminina
+      const beforeNode = document.getElementById('feminino');
 
-      // Render Masculino (com ids que o subnav usa)
       Object.keys(GROUP_TO_ID).forEach(groupName => {
         const arr = groups[groupName];
         if(!arr || !arr.length) return;
         const sec = document.createElement('section'); sec.className='section'; sec.id = GROUP_TO_ID[groupName];
-        sec.innerHTML = `<h2>${groupName}<span class="underline"></span></h2>`;
+        sec.innerHTML = `<h2>${groupName} <span class="underline"></span></h2>`;
         const list = document.createElement('div'); list.className='list';
         arr.forEach(it => list.insertAdjacentHTML('beforeend', cardHTML(it)));
         sec.appendChild(list);
         $content.insertBefore(sec, beforeNode);
       });
 
-      // Render Feminino (dentro da Coleção Feminina)
+      /* Seção Feminina • Básicas Femininas */
       const femWrap = document.getElementById('fem-sections');
       const femGroups = groupBy(ITENS.filter(i=>i.colecao==='Feminino'),'grupo');
-
-      // Seção interna: Básicas Femininas (id próprio, mas sem link no subnav)
       if (femGroups['Básicas Femininas']?.length){
         const femSec = document.createElement('section');
         femSec.className = 'section';
@@ -282,6 +449,17 @@
         femWrap.appendChild(femSec);
       }
     }
+
+    /* ===================== MODAL ===================== */
+    const dlg = document.getElementById('dlg');
+    const dlgTitle = document.getElementById('dlgTitle');
+    const dlgMain  = document.getElementById('dlgMain');
+    const dlgThumbs= document.getElementById('dlgThumbs');
+    const dlgDesc  = document.getElementById('dlgDesc');
+    const dlgPrice = document.getElementById('dlgPrice');
+    const dlgCombo = document.getElementById('dlgCombo');
+    const dlgSwatches = document.getElementById('dlgSwatches');
+    const dlgSizes = document.getElementById('dlgSizes');
 
     function openModal(item){
       dlgTitle.textContent=item.titulo;
@@ -299,16 +477,14 @@
       });
 
       dlgSwatches.innerHTML='';
-      if (item.cores && item.cores.length > 0) {
-        dlgSwatches.parentElement.style.display = 'block';
+      if (item.cores && item.cores.length){
         item.cores.forEach(c=>{ const s=document.createElement('span'); s.className='sw'; s.style.background=c; dlgSwatches.appendChild(s) });
-      } else { dlgSwatches.parentElement.style.display = 'none'; }
+      }
 
       dlgSizes.innerHTML='';
-      if (item.tamanhos && item.tamanhos.length > 0) {
-        dlgSizes.parentElement.style.display = 'block';
+      if (item.tamanhos && item.tamanhos.length){
         item.tamanhos.forEach(s=>{ const el=document.createElement('span'); el.className='sz'; el.textContent=s; dlgSizes.appendChild(el) });
-      } else { dlgSizes.parentElement.style.display = 'none'; }
+      }
 
       dlg.showModal();
     }
@@ -316,12 +492,11 @@
     document.addEventListener('click',(e)=>{
       const item=e.target.closest('.item');
       if(!item) return;
-      e.preventDefault();
       const it = ITENS.find(x=>x.id===item.dataset.id); if(!it) return;
       openModal(it);
     });
 
-    /* Scroll-spy (subnav acompanha os grupos masculinos) */
+    /* ===================== SCROLL-SPY (subnav segue a seção) ===================== */
     document.addEventListener('DOMContentLoaded', () => {
       render();
 
@@ -331,6 +506,7 @@
       const rail = document.querySelector('.sub-nav');
       if (!sections.length || !links.length || !scroller || !rail) return;
 
+      /* Clique nos botões do topo/subnav */
       document.addEventListener('click', (e) => {
         const a = e.target.closest('.sub-nav a, .top-nav a');
         if (!a) return;
@@ -355,6 +531,7 @@
         const off = headerOffset();
         let bestId=null, bestScore=Infinity;
         for (const sec of sections){
+          /* medimos a distância do topo da seção ao topo do viewport compensando header */
           const dist = Math.abs(sec.getBoundingClientRect().top - off);
           if (dist < bestScore){ bestScore = dist; bestId = sec.id; }
         }
@@ -370,9 +547,8 @@
       }
 
       function applyActive(id, {center=true, smooth=true} = {}){
-        // só aplica se existir link correspondente no subnav
         const match = links.find(a => a.getAttribute('href') === '#' + id);
-        if (!match) return; // evita limpar o estado quando for uma seção sem link (ex.: basicas_fem)
+        if (!match) return; /* se não existe no subnav (ex.: alguma seção futura), ignora */
         links.forEach(a => a.classList.toggle('active', a === match));
         if (center) centerNav(match, smooth);
       }
@@ -390,6 +566,7 @@
         });
       }
 
+      /* Ativa o item inicial sem animação */
       const initId = pickActiveId() || links[0].getAttribute('href').slice(1);
       lastId = initId;
       applyActive(initId, {center:true, smooth:false});
@@ -406,4 +583,3 @@
   </script>
 </body>
 </html>
-
